@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/work-sans':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@inertiajs/inertia':
         specifier: ^0.11.1
         version: 0.11.1
@@ -231,6 +234,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/work-sans@5.2.5':
+    resolution: {integrity: sha512-gBw1MCX+EwMIEPPXX5dcgL1I+FJGeZnfJMPSJA0Y8pPtHA0Nve0J19mMI4lzhjmyNKAP+u4JR5zOVY4qZKjYvQ==}
 
   '@inertiajs/core@2.0.11':
     resolution: {integrity: sha512-DSFdkPLvLwHC0hePc/692WK9ItRzddVZ+OS5ZO1B2+6TmZnZH3kTQZGEhaYAtkAB+DHKxOm1oGHPKQrsAZ54qQ==}
@@ -1471,6 +1477,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.5':
     optional: true
+
+  '@fontsource/work-sans@5.2.5': {}
 
   '@inertiajs/core@2.0.11':
     dependencies:

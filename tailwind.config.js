@@ -13,11 +13,13 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                sans: ["'Work Sans'", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'custom-teal': '#0A97B0',
-                'custom-teal-dark': '#064a55',
+                'sparktro-gray': '#F1F1F1',
+                'sparktro-primary': '#0A97B0',
+                'sparktro-black': '#1E2533',
+                'sparktro-red': '#FF4340',
             },
         },
     },
