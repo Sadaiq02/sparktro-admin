@@ -42,7 +42,7 @@ defineProps({
                 />
             </svg>
             <h1 class="text-4xl font-extrabold mb-4 text-black dark:text-white">
-                Welcome to Our Laravel App
+                Welcome to SPARKTRO Admin Kit
             </h1>
             <p class="mb-8 text-lg max-w-md text-black/70 dark:text-white/70">
                 Experience the power and simplicity of Laravel with this clean starter page.
