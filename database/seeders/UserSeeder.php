@@ -13,9 +13,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'sparktroboard@yopmail.com'],
+            ['email' => strtolower('sparktroboard@yopmail.com')],
             [
-                'name' => 'Sparktro Board',
+                'name' => 'SPARTTO ADMIN',
                 'password' => bcrypt('Test@1234'),
                 'email_verified_at' => now(),
                 'remember_token' => null,
