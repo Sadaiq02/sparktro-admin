@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => strtolower('sparktroboard@yopmail.com')],
+            ['email' => strtolower('sparktroadmin@yopmail.com')],
             [
                 'name' => 'SPARTTO ADMIN',
                 'password' => bcrypt('Test@1234'),

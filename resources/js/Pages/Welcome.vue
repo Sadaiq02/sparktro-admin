@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="SPARKTRO Admin Kit" />
     <div
         class="bg-gray-50 text-black/70 dark:bg-black dark:text-white/70 min-h-screen flex flex-col"
     >

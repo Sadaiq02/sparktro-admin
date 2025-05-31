@@ -30,7 +30,7 @@ const submit = () => {
 };
 
 const fillDemoCredentials = () => {
-    form.email = "sparktroboard@yopmail.com";
+    form.email = "sparktroadmin@yopmail.com";
     form.password = "Test@1234";
 };
 </script>
@@ -224,7 +224,7 @@ const fillDemoCredentials = () => {
                                         class="flex flex-col text-gray-700 min-w-[180px]"
                                     >
                                         <p class="mb-1">
-                                            Email: sparktroboard@yopmail.com
+                                            Email: sparktroadmin@yopmail.com
                                         </p>
                                         <p>Password: Test@1234</p>
                                     </div>
