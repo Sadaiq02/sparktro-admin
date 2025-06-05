@@ -1,7 +1,5 @@
-Sure! Here’s a clean, well-structured **README.md** file for your Sparktro Admin project with the updated installation steps and formatting:
-
 ````markdown
-# Sparktro Admin — Laravel + Vue 3 + Inertia.js Starter
+# Sparktro Admin — Laravel + Vue 3 + Inertia.js + SqLITE Based Starter
 
 This is a starter project integrating a Laravel backend with a Vue 3 frontend using Inertia.js for seamless SPA-like navigation. The frontend uses Vite and pnpm as the package manager.
 
