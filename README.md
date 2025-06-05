@@ -100,12 +100,4 @@ Open your browser and visit [http://localhost:8000](http://localhost:8000) to ac
 * This project uses Vite for asset bundling and pnpm for faster package management.
 
 ---
-
-## License
-
-This project is open-source and available under the MIT License.
-
-```
-
-If you want, I can also help you generate a `CONTRIBUTING.md` or any other docs! Just ask.
 ```
