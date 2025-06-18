@@ -30,7 +30,7 @@ const form = useForm({
 // Submit form
 function onSubmit() {
     form.post('/users/store', {
-        forceFormData: true,
+        form: true,
         onSuccess: () => {
 
             // optional: reset form or show success
