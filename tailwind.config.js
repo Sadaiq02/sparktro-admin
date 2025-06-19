@@ -21,7 +21,6 @@ export default {
                 'sparktro-black': '#1E2533',
                 'sparktro-red': '#FF4340',
                 'purple': '#3f3cbb',
-                'teal': '#03A6A1', 
             },
         },
     },

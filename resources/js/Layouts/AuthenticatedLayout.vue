@@ -49,27 +49,53 @@ const userMenuOpen = ref(false);
         </button>
       </div>
 
+
       <!-- Sidebar content -->
       <div v-if="sidebarVisible" class="mt-6">
-        <!-- Dashboard -->
-        <a href="#" class="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded">Dashboard</a>
+        <ul class="space-y-2">
 
-        <!-- User Management -->
-        <div>
-          <div @click="userMenuOpen = !userMenuOpen"
-            class="cursor-pointer py-2 px-2 text-sm flex justify-between items-center text-gray-700 hover:bg-gray-100 rounded">
-            <span>User Management</span>
-            <span :class="{ 'rotate-90': userMenuOpen }" class="transition-transform">▸</span>
-          </div>
+          <!-- Dashboard -->
+          <li>
+            <a href="#" class="block py-2 px-3 flex items-center justify-between font-semibold text-sm text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
 
-          <transition name="fade-slide">
-            <div v-show="userMenuOpen" class="ml-4 mt-1 space-y-1">
-              <a href="#" class="block text-gray-600 hover:underline">User List</a>
-              <a href="#" class="block text-gray-600 hover:underline">Create New User</a>
+              <span>Dashboard</span>
+
+              <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </li>
+
+          <!-- User Management -->
+          <li>
+            <div @click="userMenuOpen = !userMenuOpen"
+              class="cursor-pointer py-2 px-3 text-sm flex justify-between items-center text-gray-700 hover:bg-gray-100 rounded">
+              <span>User Management</span>
+              <svg class="w-4 h-4 transform transition-transform duration-300" :class="{ 'rotate-90': userMenuOpen }"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
             </div>
-          </transition>
-        </div>
+
+            <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-300 ease-in"
+              leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+              <ul v-show="userMenuOpen" class="ml-5 mt-1 space-y-1 overflow-hidden">
+                <li class="py-2">
+                  <a href="#" class="block text-sm text-gray-600 hover:text-teal-700">User List</a>
+                </li>
+                <li>
+                  <a href="#" class="block text-sm text-gray-600 hover:text-teal-700">Create New User</a>
+                </li>
+              </ul>
+            </transition>
+          </li>
+
+        </ul>
       </div>
+
+
     </aside>
 
     <!-- Main Content -->
