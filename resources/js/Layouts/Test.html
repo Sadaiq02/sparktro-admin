@@ -1,0 +1,88 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Layout</title>
+    <!-- Tailwind CSS (ensure this is included in your main HTML or Vite config) -->
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md p-4">
+            <h2 class="text-xl font-bold mb-4">Sidebar</h2>
+            <ul>
+                <li class="mb-2"><a href="#" class="text-gray-700">Dashboard</a></li>
+                <li class="mb-2"><a href="#" class="text-gray-700">Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            <!-- Topbar -->
+            <header class="bg-white shadow-md p-4">
+                <h1 class="text-2xl font-semibold">Topbar</h1>
+            </header>
+
+            <!-- Main Section -->
+            <main class="p-6">
+                <p class="text-gray-800">Main content goes here.</p>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+<template>
+  <div class="bg-gray-100 min-h-screen flex relative">
+    <!-- Sidebar -->
+    <aside 
+      :class="sidebarVisible ? 'w-64' : 'w-12'" 
+      class="bg-white shadow-md p-4 transition-all duration-300 relative overflow-hidden"
+    >
+      <!-- Toggle button at top right inside sidebar -->
+      <button 
+        @click="toggleSidebar"
+        class="absolute top-2 right-2 bg-white border rounded-full p-1 shadow hover:bg-gray-200"
+      >
+        <svg v-if="sidebarVisible" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+          <!-- Minus icon -->
+          <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+          <!-- Plus icon -->
+          <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <!-- Sidebar content -->
+      <div v-if="sidebarVisible" class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Sidebar</h2>
+        <ul>
+          <li class="mb-2"><a href="#" class="text-gray-700">Dashboard</a></li>
+          <li class="mb-2"><a href="#" class="text-gray-700">Settings</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+      <!-- Topbar -->
+      <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-semibold">Topbar</h1>
+      </header>
+
+      <!-- Main Section -->
+      <main class="p-6">
+        <slot />
+      </main>
+    </div>
+  </div>
+</template>
