@@ -20,6 +20,7 @@ export default {
                 'sparktro-primary': '#0A97B0',
                 'sparktro-black': '#1E2533',
                 'sparktro-red': '#FF4340',
+                'purple': '#3f3cbb',
             },
         },
     },

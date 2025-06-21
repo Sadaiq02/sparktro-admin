@@ -8,191 +8,318 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const sidebarVisible = ref(true);
+function toggleSidebar() {
+  sidebarVisible.value = !sidebarVisible.value
+}
+
+const userMenuOpen = ref(false);
+const rolePermissionMenuOpen = ref(false);
+const profileMenuOpen = ref(false);
+const notificationMenuOpen = ref(false);
+
 </script>
 
 <template>
-    <div>
-        <div class="min-h-screen bg-gray-100">
-            <nav
-                class="border-b border-gray-100 bg-white"
-            >
-                <!-- Primary Navigation Menu -->
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16 justify-between">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
-                                </Link>
-                            </div>
+  <div class="bg-gray-100 min-h-screen flex relative">
+    <!-- Sidebar -->
+    <aside :class="sidebarVisible ? 'w-72' : 'w-12'"
+      class="bg-white shadow-md p-4 transition-all duration-300 relative overflow-hidden">
 
-                            <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
-                            >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
-
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
-                            <!-- Settings Dropdown -->
-                            <div class="relative ms-3">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
-                                            >
-                                                {{ $page.props.auth.user.name }}
-
-                                                <svg
-                                                    class="-me-0.5 ms-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <DropdownLink
-                                            :href="route('profile.edit')"
-                                        >
-                                            Profile
-                                        </DropdownLink>
-                                        <DropdownLink
-                                            :href="route('logout')"
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Log Out
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">
-                            <button
-                                @click="
-                                    showingNavigationDropdown =
-                                        !showingNavigationDropdown
-                                "
-                                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
-                            >
-                                <svg
-                                    class="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        :class="{
-                                            hidden: showingNavigationDropdown,
-                                            'inline-flex':
-                                                !showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        :class="{
-                                            hidden: !showingNavigationDropdown,
-                                            'inline-flex':
-                                                showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Responsive Navigation Menu -->
-                <div
-                    :class="{
-                        block: showingNavigationDropdown,
-                        hidden: !showingNavigationDropdown,
-                    }"
-                    class="sm:hidden"
-                >
-                    <div class="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <!-- Responsive Settings Options -->
-                    <div
-                        class="border-t border-gray-200 pb-1 pt-4"
-                    >
-                        <div class="px-4">
-                            <div
-                                class="text-base font-medium text-gray-800"
-                            >
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="text-sm font-medium text-gray-500">
-                                {{ $page.props.auth.user.email }}
-                            </div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                :href="route('logout')"
-                                method="post"
-                                as="button"
-                            >
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Page Heading -->
-            <header
-                class="bg-white shadow"
-                v-if="$slots.header"
-            >
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div v-if="sidebarVisible" class="text-xl font-bold">
+          <div class="flex shrink-0 items-center">
+            <Link :href="route('dashboard')">
+            <ApplicationLogo class="block h-8 w-auto max-w-[130px] fill-current" />
+            </Link>
+          </div>
         </div>
+
+        <!-- Toggle button -->
+        <button @click="toggleSidebar" class="bg-white border rounded-full p-1 shadow hover:bg-gray-200">
+          <svg v-if="sidebarVisible" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
+            viewBox="0 0 20 20" fill="currentColor">
+            <!-- Minus icon -->
+            <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" viewBox="0 0 20 20"
+            fill="currentColor">
+            <!-- Minus icon -->
+            <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
+
+      <!-- Sidebar content -->
+      <div v-if="sidebarVisible" class="mt-6">
+        <ul class="space-y-2">
+
+          <!-- Dashboard -->
+          <li>
+            <a href="#"
+              class="block py-2 px-3 flex items-center justify-between font-bold text-sm text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+
+              <span class="flex items-center">
+                <i class="material-icons-outlined mr-2">grid_view</i>
+                Dashboard
+              </span>
+
+              <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </li>
+
+          <!-- User Management -->
+          <li>
+            <div @click="userMenuOpen = !userMenuOpen"
+              class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+              <span class="flex items-center mr-2">
+                <i class="material-icons-outlined mr-2">group</i>
+
+                User Management
+              </span>
+              <svg class="w-4 h-4 transform transition-transform duration-300" :class="{ 'rotate-90': userMenuOpen }"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+
+            <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-300 ease-in"
+              leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+              <ul v-show="userMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
+                <li class="py-2">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- User List</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Create New User</a>
+                </li>
+              </ul>
+            </transition>
+          </li>
+
+          <!-- roles & permissions -->
+          <li>
+            <div @click="rolePermissionMenuOpen = !rolePermissionMenuOpen"
+              class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+
+              <span class="flex items-center mr-2">
+                <i class="material-icons-outlined mr-2">manage_accounts</i>
+                Role & Permission
+              </span>
+              <svg class="w-4 h-4 transform transition-transform duration-300"
+                :class="{ 'rotate-90': rolePermissionMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+
+            <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-300 ease-in"
+              leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+              <ul v-show="rolePermissionMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
+                <li class="py-2">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Role</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Assign Role &
+                    Permissions</a>
+                </li>
+              </ul>
+            </transition>
+          </li>
+
+          <!-- activity log -->
+          <li>
+            <a href="#"
+              class="block py-2 px-3 flex items-center justify-between font-bold text-sm text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+
+              <span class="flex items-center">
+                <i class="material-icons-outlined mr-2">view_kanban</i>
+                Activity Log
+              </span>
+
+              <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </li>
+
+
+          <!-- profile management -->
+          <li>
+            <div @click="profileMenuOpen = !profileMenuOpen"
+              class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+              <span class="flex items-center mr-2">
+                <i class="material-icons-outlined mr-2">person</i>
+
+                Profile Management
+              </span>
+              <svg class="w-4 h-4 transform transition-transform duration-300" :class="{ 'rotate-90': profileMenuOpen }"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+
+            <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-300 ease-in"
+              leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+              <ul v-show="profileMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
+                <li class="py-2">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Profile</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Change Password</a>
+                </li>
+              </ul>
+            </transition>
+          </li>
+
+
+          <!-- notifications -->
+          <li>
+            <div @click="notificationMenuOpen = !notificationMenuOpen"
+              class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+              <span class="flex items-center mr-2">
+                <i class="material-icons-outlined mr-2">notifications</i>
+
+                Notifications
+              </span>
+              <svg class="w-4 h-4 transform transition-transform duration-300"
+                :class="{ 'rotate-90': notificationMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+
+            <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-300 ease-in"
+              leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+              <ul v-show="notificationMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
+                <li class="py-2">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- General
+                    Notification</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="block text-xs font-bold text-gray-600 hover:text-teal-600">- Push Notification</a>
+                </li>
+              </ul>
+            </transition>
+          </li>
+
+          <!-- settings -->
+          <li>
+            <a href="#"
+              class="block py-2 px-3 flex items-center justify-between font-bold text-sm text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+
+              <span class="flex items-center">
+                <i class="material-icons-outlined mr-2">settings</i>
+                Settings
+              </span>
+
+              <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </li>
+
+          <!-- logout -->
+          <li>
+            <a href="#"
+              class="block py-2 px-3 flex items-center justify-between font-bold text-sm text-gray-700 hover:text-teal-600 hover:bg-[#5BD1D7]/10 rounded transition-colors duration-200">
+
+              <span class="flex items-center">
+                <i class="material-icons-outlined mr-2">logout</i>
+                Logout
+              </span>
+
+              <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+
+      <!-- Topbar -->
+      <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <!-- Left: Search Input -->
+        <div class="flex items-center w-full max-w-xs relative">
+          <svg class="absolute left-3 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor"
+            stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.35 4.35a7.5 7.5 0 0012.3 12.3z" />
+          </svg>
+          <input type="text" placeholder="Search..."
+            class="w-full border-gray-200 rounded pl-9 pr-3 py-1 text-sm focus:outline-none" />
+        </div>
+
+
+        <!-- Right: Actions -->
+        <div class="flex items-center space-x-4 ml-4">
+          <!-- Create Button -->
+          <button class="bg-white text-dark px-3 py-1.5 rounded hover:bg-gray-100 text-sm">
+            + Create
+          </button>
+
+          <!-- Language Selector -->
+          <div class="relative">
+            <select
+              class="appearance-none border-0 rounded px-3 py-1 text-sm focus:outline-none pr-7 bg-white [&::-ms-expand]:hidden firefox:appearance-none">
+              <option>English</option>
+              <option>Bangla</option>
+            </select>
+          </div>
+
+
+          <!-- Notification Icon -->
+          <button class="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path
+                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a2 2 0 002-2H8a2 2 0 002 2z" />
+            </svg>
+            <!-- Optional: notification dot -->
+            <span class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+
+          <!-- Auth User Photo with Dropdown -->
+          <div class="relative group">
+            <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full border cursor-pointer" />
+            <!-- Dropdown (show on hover or click - simple hover demo here) -->
+            <!-- <div
+              class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
+              <div class="p-2 text-sm">
+                <p class="font-semibold">John Doe</p>
+                <p class="text-gray-500">john@example.com</p>
+              </div>
+              <div class="border-t">
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-100">Profile</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-100">Logout</a>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </header>
+
+
+      <!-- Main Section -->
+      <main class="p-6">
+        <slot />
+      </main>
     </div>
+  </div>
 </template>
