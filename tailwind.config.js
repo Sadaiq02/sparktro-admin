@@ -16,11 +16,24 @@ export default {
                 sans: ["'Work Sans'", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'sparktro-gray': '#F1F1F1',
-                'sparktro-primary': '#0A97B0',
-                'sparktro-black': '#1E2533',
-                'sparktro-red': '#FF4340',
-                'purple': '#3f3cbb',
+                gray: {
+                    sparktro: "#F1F1F1",
+                },
+                primary: {
+                    sparktro: "#0A97B0",
+                },
+                black: {
+                    sparktro: "#1E2533",
+                },
+                red: {
+                    sparktro: "#FF4340",
+                },
+                yellow: {
+                    sparktro: "#FDCB02",
+                },
+                textTeal: {
+                    sparktro: "#5BD1D7",
+                },
             },
         },
     },
