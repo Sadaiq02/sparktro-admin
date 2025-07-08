@@ -127,9 +127,9 @@ const selectedDate = ref(new Date());
             </h2>
         </template>
 
-        <div class="flex flex-col gap-6 px-4 md:px-8 bg-[#F8FAFC] min-h-screen">
+        <div class="flex flex-col gap-6 px-2 sm:px-4 md:px-8 bg-[#F8FAFC] min-h-screen">
             <!-- Stats Cards -->
-            <section class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
                 <div v-for="(stat, i) in stats" :key="i" class="bg-white rounded-xl shadow p-4 flex flex-col items-start border border-gray-100 min-w-[140px]">
                     <div class="flex items-center gap-2 mb-2">
                         <span :class="`inline-flex items-center justify-center w-7 h-7 rounded-full ${stat.bg} ${stat.color}`" v-html="icons[stat.icon]"></span>
@@ -147,7 +147,7 @@ const selectedDate = ref(new Date());
             </section>
 
             <!-- Main Grid: Figma-accurate, responsive -->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <!-- Row 1: Revenue (1/2) + Sales (1/2) -->
                 <div class="flex flex-col gap-6">
                     <div class="bg-white rounded-xl shadow p-6 min-h-[300px] flex flex-col h-full">
@@ -171,7 +171,7 @@ const selectedDate = ref(new Date());
                     </div>
                 </div>
                 <!-- Row 2: Calendar + Browse Status + Task Status -->
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                     <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">Calendar Schedule</h2>
@@ -215,7 +215,7 @@ const selectedDate = ref(new Date());
                     </div>
                 </div>
                 <!-- Row 3: Recent Order (1/2) + New Customer (1/2) -->
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">Recent Order</h2>

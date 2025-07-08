@@ -102,26 +102,23 @@ const fillDemoCredentials = () => {
                         </div>
 
                         <!-- Password -->
-                        <div class="relative">
-                            <InputLabel for="password" value="Password" />
-
+                        <div class="relative flex items-center mt-1">
                             <TextInput
                                 :type="showPassword ? 'text' : 'password'"
                                 id="password"
-                                class="mt-1 block w-full pr-12"
+                                class="block w-full pr-12"
                                 v-model="form.password"
                                 required
                                 autocomplete="current-password"
                                 aria-required="true"
                             />
-
-                            <!-- Eye icon -->
                             <button
                                 type="button"
                                 @click="showPassword = !showPassword"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                class="absolute right-3 inset-y-0 flex items-center text-gray-500 hover:text-gray-700"
                                 tabindex="-1"
                                 aria-label="Toggle password visibility"
+                                style="height: 100%;"
                             >
                                 <svg
                                     v-if="showPassword"

@@ -38,12 +38,11 @@ defineProps({
                     <ApplicationLogo class="h-12 w-auto text-gray-700" />
                 </Link>
             </div>
-            <h1 class="text-4xl font-extrabold mb-4 text-black dark:text-white">
+            <h1 class="text-4xl font-extrabold mb-4 text-black dark:text-white drop-shadow-sm">
                 Welcome to SPARKTRO Admin Kit
             </h1>
-            <p class="mb-8 text-lg max-w-md text-black/70 dark:text-white/70">
-                Experience the power and simplicity of Laravel with this clean
-                starter page.
+            <p class="mb-8 text-lg max-w-md text-black font-medium dark:text-white drop-shadow-sm">
+                Experience the power and simplicity of Laravel with this clean starter page.
             </p>
             <Link
                 v-if="canLogin"

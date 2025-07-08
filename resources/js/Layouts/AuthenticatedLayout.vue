@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -19,6 +19,23 @@ const rolePermissionMenuOpen = ref(false);
 const profileMenuOpen = ref(false);
 const notificationMenuOpen = ref(false);
 const settingsMenuOpen = ref(false);
+
+// Profile dropdown logic
+const profileDropdownOpen = ref(false);
+function toggleProfileDropdown() {
+  profileDropdownOpen.value = !profileDropdownOpen.value;
+}
+function closeProfileDropdown(e) {
+  if (!e.target.closest('.profile-dropdown')) {
+    profileDropdownOpen.value = false;
+  }
+}
+onMounted(() => {
+  document.addEventListener('click', closeProfileDropdown);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeProfileDropdown);
+});
 </script>
 
 <template>
@@ -103,10 +120,10 @@ const settingsMenuOpen = ref(false);
                             leave-to-class="opacity-0 max-h-0">
               <ul v-show="rolePermissionMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
                 <li class="py-2">
-                                    <Link href="/roles/all" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Role</Link>
+                                    <Link href="/role/all" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Role</Link>
                 </li>
                 <li class="py-1">
-                                    <Link href="/roles/assign" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Assign Role & Permissions</Link>
+                                    <Link href="/role/assign" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Assign Role & Permissions</Link>
                 </li>
               </ul>
             </transition>
@@ -172,19 +189,48 @@ const settingsMenuOpen = ref(false);
                   </transition>
                 </li>
                 <li>
-                  <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
+                  <a href="#" @click.prevent="$inertia.post('/logout')" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
                     <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">logout</i>
                     Logout
                   </a>
                 </li>
               </ul>
             </div>
+    <div v-else class="mt-6 flex flex-col items-center space-y-4">
+      <Link href="/dashboard" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Dashboard">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">grid_view</i>
+      </Link>
+      <button @click="userMenuOpen = !userMenuOpen" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="User Management">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">group</i>
+      </button>
+      <Link href="/role/all" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Role">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">manage_accounts</i>
+      </Link>
+      <Link href="/role/assign" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Assign Role & Permissions">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">assignment_turned_in</i>
+      </Link>
+      <Link href="/activity-logs" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Activity Logs">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">history</i>
+      </Link>
+      <button @click="profileMenuOpen = !profileMenuOpen" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Profile Management">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">person</i>
+      </button>
+      <button @click="notificationMenuOpen = !notificationMenuOpen" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Notifications">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">notifications</i>
+      </button>
+      <button @click="settingsMenuOpen = !settingsMenuOpen" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Settings">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">settings</i>
+      </button>
+      <button @click.prevent="$inertia.post('/logout')" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Logout">
+        <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">logout</i>
+      </button>
+    </div>
     </aside>
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col h-screen">
             <!-- Top bar -->
-            <header class="bg-white shadow-sm h-[68px] px-6 py-2.5 flex justify-between items-center border-b border-gray-sparktro">
+            <header class="bg-white shadow-sm h-[68px] px-2 py-8 flex justify-between items-center border-b border-gray-sparktro">
                 <!-- Search Input -->
                 <div class="flex items-center relative w-[300px] gap-[10px]">
                     <svg class="absolute left-4 w-4 h-4 text-black-sparktro/50 pointer-events-none" fill="none"
@@ -217,19 +263,18 @@ const settingsMenuOpen = ref(false);
           </button>
 
                     <!-- User Avatar -->
-          <div class="relative group">
-                        <div class="w-8 h-8 rounded-full bg-primary-sparktro flex items-center justify-center text-white font-bold cursor-pointer">
+          <div class="relative profile-dropdown">
+                        <div class="w-8 h-8 rounded-full bg-primary-sparktro flex items-center justify-center text-white font-bold cursor-pointer" @click="toggleProfileDropdown">
                             JD
                         </div>
-                        <div
-                            class="absolute right-0 mt-2 w-40 bg-white border border-gray-sparktro rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
+                        <div v-if="profileDropdownOpen" class="absolute right-0 mt-2 w-40 bg-white border border-gray-sparktro rounded shadow-md z-50">
               <div class="p-2 text-sm">
                                 <p class="font-semibold text-black-sparktro">John Doe</p>
                                 <p class="text-black-sparktro/60">john@example.com</p>
                             </div>
                             <div class="border-t border-gray-sparktro">
-                                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-sparktro">Profile</a>
-                                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-sparktro">Logout</a>
+                                <Link href="/profile" class="block px-3 py-2 text-sm hover:bg-gray-sparktro">Profile</Link>
+                                <Link href="/logout" method="post" as="button" class="block px-3 py-2 text-sm hover:bg-gray-sparktro w-full text-left">Logout</Link>
               </div>
               </div>
           </div>

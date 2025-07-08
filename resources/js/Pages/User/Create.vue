@@ -55,16 +55,14 @@ function onSubmit() {
 
                     <h2 class="text-lg font-semibold text-gray-800">Create New User</h2>
                     <div>
-                        <Link href="/users/all" class="px-4 py-2 bg-white text-sm rounded text-gray-800">
-                        ✕ Cancel
-                        </Link>
+                        <Link href="/users/all" class="px-4 py-2 bg-white text-sm rounded text-gray-800 border border-gray-200 hover:bg-gray-100 transition">✕ Cancel</Link>
                     </div>
                 </div>
 
                 <div class="p-6">
 
                     <!-- Form -->
-                    <form class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm" @submit.prevent="onSubmit()">
+                    <form class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4 text-sm" @submit.prevent="onSubmit()">
                         <!-- Row 1 -->
                         <div>
                             <label class="block text-xs font-semibold mb-1">User Name</label>
@@ -175,8 +173,8 @@ function onSubmit() {
                         </div>
 
 
-                        <div class="flex justify-start mt-4">
-                            <button type="submit" class="px-4 py-2 bg-teal text-sm rounded text-white">
+                        <div class="md:col-span-3 flex justify-start mt-6">
+                            <button type="submit" class="px-6 py-2 bg-[#0A97B0] text-sm rounded font-semibold text-white shadow hover:bg-[#09879b] transition w-full md:w-auto">
                                 Create User
                             </button>
                         </div>

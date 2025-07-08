@@ -31,4 +31,13 @@ Route::middleware('auth')
     Route::post('/store', [UserController::class, 'store'])->name('store');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/role/all', function () {
+        return Inertia::render('Role/All');
+    });
+    Route::get('/role/assign', function () {
+        return Inertia::render('Role/Assign');
+    });
+});
+
 require __DIR__.'/auth.php';
