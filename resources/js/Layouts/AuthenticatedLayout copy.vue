@@ -8,6 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+const userMenuOpen = ref(false);
 </script>
 
 <template>
@@ -33,12 +34,96 @@ const showingNavigationDropdown = ref(false);
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </NavLink>
+                                <ul class="space-y-1">
+                                    <li>
+                                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <div @click="userMenuOpen = !userMenuOpen"
+                                            class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200">
+                                            <span class="flex items-center mr-2">
+                                                <i class="material-icons-outlined mr-2">group</i>
+                                                User Management
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300"
+                                                :class="{ 'rotate-90': userMenuOpen }" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                        <transition enter-active-class="transition duration-300 ease-out"
+                                            enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40"
+                                            leave-active-class="transition duration-300 ease-in" leave-from-class="opacity-100 max-h-40"
+                                            leave-to-class="opacity-0 max-h-0">
+                                            <ul v-show="userMenuOpen" class="ml-8 mt-0 space-y-1 overflow-hidden">
+                                                <li>
+                                                    <a href="#" class="block text-sm font-medium text-black-sparktro/80 hover:text-primary-sparktro py-1 pl-2">List Users</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="block text-sm font-medium text-black-sparktro/80 hover:text-primary-sparktro py-1 pl-2">Create New User</a>
+                                                </li>
+                                            </ul>
+                                        </transition>
+                                    </li>
+                                    <li>
+                                        <div class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200 cursor-pointer">
+                                            <span class="flex items-center">
+                                                <i class="material-icons-outlined mr-2">history</i>
+                                                Activity Logs
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200 cursor-pointer">
+                                            <span class="flex items-center">
+                                                <i class="material-icons-outlined mr-2">person</i>
+                                                Profile Management
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200 cursor-pointer">
+                                            <span class="flex items-center">
+                                                <i class="material-icons-outlined mr-2">notifications</i>
+                                                Notifications
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200 cursor-pointer">
+                                            <span class="flex items-center">
+                                                <i class="material-icons-outlined mr-2">settings</i>
+                                                Settings
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200 cursor-pointer">
+                                            <span class="flex items-center">
+                                                <i class="material-icons-outlined mr-2">logout</i>
+                                                Logout
+                                            </span>
+                                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 

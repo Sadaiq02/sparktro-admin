@@ -18,16 +18,16 @@ const userMenuOpen = ref(false);
 const rolePermissionMenuOpen = ref(false);
 const profileMenuOpen = ref(false);
 const notificationMenuOpen = ref(false);
+const settingsMenuOpen = ref(false);
 </script>
 
 <template>
     <div class="bg-gray-sparktro min-h-screen flex relative">
     <!-- Sidebar -->
-        <aside :class="sidebarVisible ? 'w-[316px]' : 'w-12'"
-            class="bg-white h-[1611px] border-r border-gray-sparktro p-0 transition-all duration-300 relative overflow-hidden">
+        <aside :class="sidebarVisible ? 'w-[260px]' : 'w-12'" class="bg-white border-r border-gray-200 h-screen overflow-y-auto transition-all duration-300">
 
             <!-- Logo area -->
-            <div class="logo-area flex items-center justify-between h-[68px] px-6 py-2.5 border-b border-gray-sparktro">
+            <div class="logo-area flex items-center justify-between h-[68px] px-6 py-2.5 border-b border-gray-200">
         <div v-if="sidebarVisible" class="text-xl font-bold">
           <div class="flex shrink-0 items-center">
             <Link :href="route('dashboard')">
@@ -37,14 +37,13 @@ const notificationMenuOpen = ref(false);
         </div>
 
                 <!-- Toggle button with right margin when collapsed -->
-                <button @click="toggleSidebar" :class="{ 'mr-2': !sidebarVisible }"
-                    class="bg-white border rounded-full p-1 shadow hover:bg-gray-sparktro">
-                    <svg v-if="sidebarVisible" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black-sparktro/60"
+                <button @click="toggleSidebar" :class="{ 'mr-2': !sidebarVisible }" class="bg-white border rounded-full p-1 shadow hover:bg-gray-100">
+                    <svg v-if="sidebarVisible" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400"
             viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
                             clip-rule="evenodd" />
           </svg>
-                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black-sparktro/60" viewBox="0 0 20 20"
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20"
             fill="currentColor">
                         <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
                             clip-rule="evenodd" />
@@ -53,50 +52,36 @@ const notificationMenuOpen = ref(false);
       </div>
 
       <!-- Sidebar content -->
-            <div v-if="sidebarVisible" class="mt-6 px-6">
+            <div v-if="sidebarVisible" class="mt-6 px-2">
                 <ul class="space-y-1">
           <!-- Dashboard -->
           <li>
-            <a href="#"
-                            class="py-2 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200">
-              <span class="flex items-center">
-                <i class="material-icons-outlined mr-2">grid_view</i>
-                Dashboard
-              </span>
-                            <svg class="w-4 h-4 transform transition-transform duration-300" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+            <Link href="/dashboard" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': false }">
+              <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">grid_view</i>
+              Dashboard
+            </Link>
           </li>
 
           <!-- User Management -->
           <li>
-            <div @click="userMenuOpen = !userMenuOpen"
-                            class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200">
-              <span class="flex items-center mr-2">
-                <i class="material-icons-outlined mr-2">group</i>
-                User Management
-              </span>
-                            <svg class="w-4 h-4 transform transition-transform duration-300"
-                                :class="{ 'rotate-90': userMenuOpen }" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
+            <div @click="userMenuOpen = !userMenuOpen" tabindex="0" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm cursor-pointer transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': userMenuOpen }">
+              <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]" :class="{ 'text-[#0A97B0]': userMenuOpen }">group</i>
+              User Management
+              <svg class="ml-auto w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 text-[#0A97B0]': userMenuOpen, 'text-gray-400': !userMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
 
-                        <transition enter-active-class="transition duration-300 ease-out"
-                            enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40"
-                            leave-active-class="transition duration-300 ease-in" leave-from-class="opacity-100 max-h-40"
-                            leave-to-class="opacity-0 max-h-0">
-              <ul v-show="userMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
-                <li class="py-2">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro">- User List</a>
+            <transition enter-active-class="transition duration-150 ease-out"
+                enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40"
+                leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40"
+                leave-to-class="opacity-0 max-h-0">
+              <ul v-show="userMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
+                <li>
+                  <Link href="/users/all" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">List Users</Link>
                 </li>
-                <li class="py-1">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro">- Create New User</a>
+                <li>
+                  <Link href="/users/create" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Create New User</Link>
                 </li>
               </ul>
             </transition>
@@ -104,40 +89,100 @@ const notificationMenuOpen = ref(false);
 
                     <!-- Roles & Permissions -->
           <li>
-            <div @click="rolePermissionMenuOpen = !rolePermissionMenuOpen"
-                            class="cursor-pointer py-2 px-3 text-sm font-bold flex justify-between items-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded transition-colors duration-200">
-              <span class="flex items-center mr-2">
-                <i class="material-icons-outlined mr-2">manage_accounts</i>
-                Role & Permission
-              </span>
-              <svg class="w-4 h-4 transform transition-transform duration-300"
-                                :class="{ 'rotate-90': rolePermissionMenuOpen }" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
+            <div @click="rolePermissionMenuOpen = !rolePermissionMenuOpen" tabindex="0" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm cursor-pointer transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': rolePermissionMenuOpen }">
+              <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]" :class="{ 'text-[#0A97B0]': rolePermissionMenuOpen }">manage_accounts</i>
+              Role & Permission
+              <svg class="ml-auto w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 text-[#0A97B0]': rolePermissionMenuOpen, 'text-gray-400': !rolePermissionMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
 
-                        <transition enter-active-class="transition duration-300 ease-out"
+                        <transition enter-active-class="transition duration-150 ease-out"
                             enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40"
-                            leave-active-class="transition duration-300 ease-in" leave-from-class="opacity-100 max-h-40"
+                            leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40"
                             leave-to-class="opacity-0 max-h-0">
-              <ul v-show="rolePermissionMenuOpen" class="ml-5 mt-0 space-y-1 overflow-hidden">
+              <ul v-show="rolePermissionMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
                 <li class="py-2">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro">- Role</a>
+                                    <Link href="/roles/all" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Role</Link>
                 </li>
                 <li class="py-1">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro">- Assign Role & Permissions</a>
+                                    <Link href="/roles/assign" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Assign Role & Permissions</Link>
                 </li>
               </ul>
             </transition>
+                </li>
+                <li>
+                  <Link href="/activity-logs" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
+                    <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">history</i>
+                    Activity Logs
+                  </Link>
+                </li>
+                <li>
+                  <div @click="profileMenuOpen = !profileMenuOpen" tabindex="0" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm cursor-pointer transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': profileMenuOpen }">
+                    <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]" :class="{ 'text-[#0A97B0]': profileMenuOpen }">person</i>
+                    Profile Management
+                    <svg class="ml-auto w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 text-[#0A97B0]': profileMenuOpen, 'text-gray-400': !profileMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <transition enter-active-class="transition duration-150 ease-out" enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+                    <ul v-show="profileMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
+                      <li>
+                        <Link href="/profile" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Profile</Link>
+                      </li>
+                      <li>
+                        <Link href="/profile" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Change Password</Link>
+                      </li>
+                    </ul>
+                  </transition>
+                </li>
+                <li>
+                  <div @click="notificationMenuOpen = !notificationMenuOpen" tabindex="0" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm cursor-pointer transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': notificationMenuOpen }">
+                    <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]" :class="{ 'text-[#0A97B0]': notificationMenuOpen }">notifications</i>
+                    Notifications
+                    <svg class="ml-auto w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 text-[#0A97B0]': notificationMenuOpen, 'text-gray-400': !notificationMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <transition enter-active-class="transition duration-150 ease-out" enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+                    <ul v-show="notificationMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
+                      <li>
+                        <Link href="/notifications/general" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">General Notification</Link>
+                      </li>
+                      <li>
+                        <Link href="/notifications/push" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Push Notification</Link>
+                      </li>
+                    </ul>
+                  </transition>
+                </li>
+                <li>
+                  <div @click="settingsMenuOpen = !settingsMenuOpen" tabindex="0" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm cursor-pointer transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group" :class="{ 'bg-[#E6F7FA] text-[#0A97B0]': settingsMenuOpen }">
+                    <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]" :class="{ 'text-[#0A97B0]': settingsMenuOpen }">settings</i>
+                    Settings
+                    <svg class="ml-auto w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 text-[#0A97B0]': settingsMenuOpen, 'text-gray-400': !settingsMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <transition enter-active-class="transition duration-150 ease-out" enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
+                    <ul v-show="settingsMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
+                      <li>
+                        <Link href="/settings" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">General Setting</Link>
+                      </li>
+                    </ul>
+                  </transition>
+                </li>
+                <li>
+                  <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
+                    <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">logout</i>
+                    Logout
+                  </a>
                 </li>
               </ul>
             </div>
     </aside>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col h-screen">
             <!-- Top bar -->
             <header class="bg-white shadow-sm h-[68px] px-6 py-2.5 flex justify-between items-center border-b border-gray-sparktro">
                 <!-- Search Input -->

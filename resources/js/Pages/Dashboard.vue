@@ -2,6 +2,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import LineChart from '@/Components/line-chart.vue';
+import BarChart from '@/Components/bar-chart.vue';
+import PieChart from '@/Components/pie-chart.vue';
+import CalendarWidget from '@/Components/calendar-widget.vue';
+import { ref } from 'vue';
 
 const stats = [
   { label: 'Total Employees', value: 18, change: '+6.09%', icon: 'users', color: 'text-[#0A97B0]', bg: 'bg-[#E6F7FA]', up: true },
@@ -18,6 +22,82 @@ const stats = [
   { label: 'Pending Order', value: 64, change: '-0.09%', icon: 'clock', color: 'text-[#0A97B0]', bg: 'bg-[#E6F7FA]', up: false },
 ];
 
+// Example Revenue Chart Data (Line)
+const revenueChartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  datasets: [
+    {
+      label: 'Revenue',
+      data: [0.2, 0.3, 0.4, 0.5, 0.7, 0.9, 1.0, 0.95, 0.85, 0.8, 0.7, 0.6],
+      borderColor: '#0A97B0',
+      backgroundColor: 'rgba(10,151,176,0.1)',
+      fill: true,
+      tension: 0.4,
+    },
+    {
+      label: 'Expenses',
+      data: [0.1, 0.15, 0.2, 0.25, 0.4, 0.5, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35],
+      borderColor: '#A0AEC0',
+      backgroundColor: 'rgba(160,174,192,0.1)',
+      fill: true,
+      tension: 0.4,
+    },
+  ],
+};
+
+// Sales Chart Data (Bar)
+const salesChartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  datasets: [
+    {
+      label: 'Sales',
+      data: [0.3, 0.4, 0.8, 0.6, 0.7, 0.9, 0.8, 0.5, 0.6, 0.7, 0.8, 0.9],
+      backgroundColor: '#0A97B0',
+    },
+    {
+      label: 'Order',
+      data: [0.2, 0.3, 0.5, 0.4, 0.5, 0.7, 0.6, 0.4, 0.5, 0.6, 0.7, 0.8],
+      backgroundColor: '#A0AEC0',
+    },
+  ],
+};
+
+// Browse Status Pie Data
+const browseStatusData = [
+  { label: 'Firefox', value: 354612365 },
+  { label: 'Google Chrome', value: 254612365 },
+  { label: 'Microsoft Edge', value: 154612365 },
+  { label: 'Opera', value: 54612365 },
+];
+
+// Task Status Data
+const taskStatus = {
+  complete: 982,
+  pending: 126,
+  due: 65,
+  chart: [
+    800, 820, 830, 850, 870, 900, 920, 950, 970, 982, 980, 990, 1000, 1010, 1020, 1030, 1040, 1050, 1060, 1070, 1080, 1090, 1100, 1110, 1120, 1130, 1140, 1150, 1160, 1170
+  ],
+};
+
+// Recent Order Table Data
+const recentOrders = [
+  { image: 'iphone-13-pro-max.png', customer: 'iPhone 13 pro max', qty: 1, date: '11 May 2025', price: '$360.05', status: 'Paid' },
+  { image: 'iphone-13-pro-max.png', customer: 'iPhone 13 pro max', qty: 1, date: '11 May 2025', price: '$360.05', status: 'Paid' },
+  { image: 'iphone-13-pro-max.png', customer: 'iPhone 13 pro max', qty: 1, date: '11 May 2025', price: '$360.05', status: 'Paid' },
+  { image: 'iphone-13-pro-max.png', customer: 'iPhone 13 pro max', qty: 1, date: '11 May 2025', price: '$360.05', status: 'Unpaid' },
+  { image: 'iphone-13-pro-max.png', customer: 'iPhone 13 pro max', qty: 1, date: '11 May 2025', price: '$360.05', status: 'Paid' },
+];
+
+// New Customer Table Data
+const newCustomers = [
+  { image: 'avatar1.png', name: 'Jacob Jones', country: 'United State', date: '11 May 2025', status: 'Active' },
+  { image: 'avatar2.png', name: 'Savannah Nguyen', country: 'United State', date: '11 May 2025', status: 'Inactive' },
+  { image: 'avatar3.png', name: 'Marvin McKinney', country: 'United State', date: '11 May 2025', status: 'Active' },
+  { image: 'avatar4.png', name: 'Brooklyn Simmons', country: 'United State', date: '11 May 2025', status: 'Inactive' },
+  { image: 'avatar5.png', name: 'Wade Warren', country: 'United State', date: '11 May 2025', status: 'Active' },
+];
+
 const icons = {
   users: `<svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87m9-4a4 4 0 1 0-8 0 4 4 0 0 0 8 0z'/></svg>`,
   'user-group': `<svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87m9-4a4 4 0 1 0-8 0 4 4 0 0 0 8 0z'/></svg>`,
@@ -31,6 +111,8 @@ const icons = {
   'user-plus': `<svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 11V7a4 4 0 10-8 0v4M12 19v2m-6-2a6 6 0 0112 0v2'/></svg>`,
   clock: `<svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/></svg>`,
 };
+
+const selectedDate = ref(new Date());
 </script>
 
 <template>
@@ -45,7 +127,7 @@ const icons = {
             </h2>
         </template>
 
-        <div class="flex flex-col gap-6 px-4 md:px-8 py-8 bg-[#F8FAFC] min-h-screen">
+        <div class="flex flex-col gap-6 px-4 md:px-8 bg-[#F8FAFC] min-h-screen">
             <!-- Stats Cards -->
             <section class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <div v-for="(stat, i) in stats" :key="i" class="bg-white rounded-xl shadow p-4 flex flex-col items-start border border-gray-100 min-w-[140px]">
@@ -82,7 +164,10 @@ const icons = {
                             <h2 class="font-semibold text-gray-800">Sales</h2>
                             <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[Bar Chart]</div>
+                        <div v-if="!salesChartData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 flex items-center justify-center">
+                          <BarChart :chartData="salesChartData" />
+                        </div>
                     </div>
                 </div>
                 <!-- Row 2: Calendar + Browse Status + Task Status -->
@@ -92,30 +177,38 @@ const icons = {
                             <h2 class="font-semibold text-gray-800">Calendar Schedule</h2>
                             <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[Calendar Widget]</div>
+                        <div class="flex-1 flex items-center justify-center text-gray-400">
+                          <CalendarWidget v-model:selectedDate="selectedDate" />
+                        </div>
                     </div>
                     <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">Browse Status</h2>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[Pie Chart]</div>
+                        <div v-if="!browseStatusData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 flex items-center justify-center">
+                          <PieChart :data="browseStatusData" />
+                        </div>
                     </div>
                     <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">Task Status</h2>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[Task Status Chart]</div>
+                        <div v-if="!taskStatus.chart" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 flex items-center justify-center">
+                          <LineChart :chartData="{ labels: Array(taskStatus.chart.length).fill(''), datasets: [{ label: 'Tasks', data: taskStatus.chart, borderColor: '#0A97B0', backgroundColor: 'rgba(10,151,176,0.1)', fill: true, tension: 0.4 }] }" />
+                        </div>
                         <div class="flex justify-between mt-4">
                             <div class="flex flex-col items-center">
-                                <span class="text-lg font-bold text-[#0A97B0]">982</span>
+                                <span class="text-lg font-bold text-[#0A97B0]">{{ taskStatus.complete }}</span>
                                 <span class="text-xs text-gray-400">Complete Task</span>
                             </div>
                             <div class="flex flex-col items-center">
-                                <span class="text-lg font-bold text-yellow-500">126</span>
+                                <span class="text-lg font-bold text-yellow-500">{{ taskStatus.pending }}</span>
                                 <span class="text-xs text-gray-400">Pending Task</span>
                             </div>
                             <div class="flex flex-col items-center">
-                                <span class="text-lg font-bold text-red-500">65</span>
+                                <span class="text-lg font-bold text-red-500">{{ taskStatus.due }}</span>
                                 <span class="text-xs text-gray-400">Due Task</span>
                             </div>
                         </div>
@@ -127,13 +220,77 @@ const icons = {
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">Recent Order</h2>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[Recent Order Table]</div>
+                        <div class="overflow-x-auto">
+                          <table class="min-w-full text-xs">
+                            <thead>
+                              <tr>
+                                <th>IMAGE</th>
+                                <th>CUSTOMER NAME</th>
+                                <th>QTY</th>
+                                <th>DATE</th>
+                                <th>PRICE</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(order, i) in recentOrders" :key="i">
+                                <td><img :src="`/images/${order.image}`" alt="" class="w-8 h-8 rounded" /></td>
+                                <td>{{ order.customer }}</td>
+                                <td>{{ order.qty }}</td>
+                                <td>{{ order.date }}</td>
+                                <td>{{ order.price }}</td>
+                                <td>
+                                  <span :class="order.status === 'Paid' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded">
+                                    {{ order.status }}
+                                  </span>
+                                </td>
+                                <td>
+                                  <button class="text-gray-400 hover:text-[#0A97B0]">
+                                    <i class="material-icons-outlined">more_vert</i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                     </div>
                     <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
                         <div class="flex items-center justify-between mb-2">
                             <h2 class="font-semibold text-gray-800">New Customer</h2>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">[New Customer Table]</div>
+                        <div class="overflow-x-auto">
+                          <table class="min-w-full text-xs">
+                            <thead>
+                              <tr>
+                                <th>IMAGE</th>
+                                <th>CUSTOMER NAME</th>
+                                <th>COUNTRY</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(customer, i) in newCustomers" :key="i">
+                                <td><img :src="`/images/${customer.image}`" alt="" class="w-8 h-8 rounded-full" /></td>
+                                <td>{{ customer.name }}</td>
+                                <td>{{ customer.country }}</td>
+                                <td>{{ customer.date }}</td>
+                                <td>
+                                  <span :class="customer.status === 'Active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded">
+                                    {{ customer.status }}
+                                  </span>
+                                </td>
+                                <td>
+                                  <button class="text-gray-400 hover:text-[#0A97B0]">
+                                    <i class="material-icons-outlined">more_vert</i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                     </div>
                 </div>
             </section>
