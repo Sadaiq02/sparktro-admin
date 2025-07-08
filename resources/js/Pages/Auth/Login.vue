@@ -232,7 +232,7 @@ const fillDemoCredentials = () => {
                                         <button
                                             type="button"
                                             @click="fillDemoCredentials"
-                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white rounded-lg fill-demo-btn"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-dark rounded-lg fill-demo-btn"
                                         >
                                             Fill in demo credentials
                                             <svg
