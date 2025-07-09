@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
             </transition>
                 </li>
                 <li>
-                  <Link href="/activity-logs" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
+                  <Link href="/activity/logs" class="flex items-center gap-3 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] group">
                     <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">history</i>
                     Activity Logs
                   </Link>
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
       <Link href="/role/assign" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Assign Role & Permissions">
         <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">assignment_turned_in</i>
       </Link>
-      <Link href="/activity-logs" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Activity Logs">
+      <Link href="/activity/logs" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Activity Logs">
         <i class="material-icons-outlined text-[22px] group-hover:text-[#0A97B0]">history</i>
       </Link>
       <button @click="profileMenuOpen = !profileMenuOpen" class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#E6F7FA] group" title="Profile Management">

@@ -38,6 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/role/assign', function () {
         return Inertia::render('Role/Assign');
     });
+    // Activity Logs page
+    Route::get('/activity/logs', function () {
+        return Inertia::render('Activity/Logs');
+    })->name('activity.logs');
 });
 
 require __DIR__.'/auth.php';
