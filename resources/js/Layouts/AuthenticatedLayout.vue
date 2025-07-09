@@ -164,10 +164,13 @@ onBeforeUnmount(() => {
                   <transition enter-active-class="transition duration-150 ease-out" enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-40" leave-active-class="transition duration-150 ease-in" leave-from-class="opacity-100 max-h-40" leave-to-class="opacity-0 max-h-0">
                     <ul v-show="notificationMenuOpen" class="ml-8 mt-1 space-y-1 overflow-hidden">
                       <li>
-                        <Link href="/notifications/general" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">General Notification</Link>
+                        <Link href="/notifications/push" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Push Notifications</Link>
                       </li>
                       <li>
-                        <Link href="/notifications/push" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Push Notification</Link>
+                        <Link href="/notifications/push/create" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">Create Push Notification</Link>
+                      </li>
+                      <li>
+                        <Link href="/notifications/general" class="flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-[#E6F7FA] hover:text-[#0A97B0] border-l-4" :class="{ 'bg-[#E6F7FA] text-[#0A97B0] border-[#0A97B0]': false, 'border-transparent': true }">General Notifications</Link>
                       </li>
                     </ul>
                   </transition>
