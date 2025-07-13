@@ -127,17 +127,17 @@ const selectedDate = ref(new Date());
             </h2>
         </template>
 
-        <div class="flex flex-col gap-6 px-2 sm:px-4 md:px-8 bg-[#F8FAFC] min-h-screen">
+        <div class="flex flex-col gap-4 sm:gap-6 px-2 sm:px-8 md:px-8 bg-[#F8FAFC] min-h-screen">
             <!-- Stats Cards -->
-            <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
-                <div v-for="(stat, i) in stats" :key="i" class="bg-white rounded-xl shadow p-4 flex flex-col items-start border border-gray-100 min-w-[140px]">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span :class="`inline-flex items-center justify-center w-7 h-7 rounded-full ${stat.bg} ${stat.color}`" v-html="icons[stat.icon]"></span>
-                        <span class="text-xs text-gray-500 font-medium">{{ stat.label }}</span>
+            <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
+                <div v-for="(stat, i) in stats" :key="i" class="bg-white rounded-xl shadow p-3 sm:p-4 flex flex-col items-start border border-gray-100 min-w-0">
+                    <div class="flex items-center gap-2 mb-2 w-full">
+                        <span :class="`inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full ${stat.bg} ${stat.color} flex-shrink-0`" v-html="icons[stat.icon]"></span>
+                        <span class="text-xs text-gray-500 font-medium truncate">{{ stat.label }}</span>
                     </div>
-                    <div class="flex items-end gap-2">
-                        <span class="text-xl font-bold text-gray-900">{{ stat.value }}</span>
-                        <span class="text-xs flex items-center" :class="stat.up ? 'text-green-600' : 'text-red-600'">
+                    <div class="flex items-end gap-2 w-full">
+                        <span class="text-lg sm:text-xl font-bold text-gray-900 truncate">{{ stat.value }}</span>
+                        <span class="text-xs flex items-center flex-shrink-0" :class="stat.up ? 'text-green-600' : 'text-red-600'">
                             <svg v-if="stat.up" class="h-3 w-3 mr-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
                             <svg v-else class="h-3 w-3 mr-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"/></svg>
                             {{ stat.change }}
@@ -146,108 +146,113 @@ const selectedDate = ref(new Date());
                 </div>
             </section>
 
-            <!-- Main Grid: Figma-accurate, responsive -->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            <!-- Main Grid: Enhanced responsive layout -->
+            <section class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
                 <!-- Row 1: Revenue (1/2) + Sales (1/2) -->
                 <div class="flex flex-col gap-6">
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[300px] flex flex-col h-full">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Revenue</h2>
+                    <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[300px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="font-semibold text-gray-800 text-lg">Revenue</h2>
                             <span class="text-xs text-gray-400">May 2025</span>
                         </div>
+                        <div class="flex-1 min-h-[250px]">
                         <LineChart :chartData="revenueChartData" :chartOptions="revenueChartOptions" :loading="loading" />
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-6">
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[300px] flex flex-col h-full">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Sales</h2>
+                    <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[300px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="font-semibold text-gray-800 text-lg">Sales</h2>
                             <span class="text-xs text-gray-400">May 2025</span>
                         </div>
                         <div v-if="!salesChartData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
-                        <div v-else class="flex-1 flex items-center justify-center">
+                        <div v-else class="flex-1 min-h-[250px]">
                           <BarChart :chartData="salesChartData" />
                         </div>
                     </div>
                 </div>
+            </section>
+
                 <!-- Row 2: Calendar + Browse Status + Task Status -->
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Calendar Schedule</h2>
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Calendar Schedule</h2>
                             <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="flex-1 flex items-center justify-center text-gray-400">
+                    <div class="flex-1 flex items-center justify-center">
                           <CalendarWidget v-model:selectedDate="selectedDate" />
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Browse Status</h2>
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Browse Status</h2>
                         </div>
                         <div v-if="!browseStatusData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
                         <div v-else class="flex-1 flex items-center justify-center">
                           <PieChart :data="browseStatusData" />
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Task Status</h2>
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Task Status</h2>
                         </div>
                         <div v-if="!taskStatus.chart" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
                         <div v-else class="flex-1 flex items-center justify-center">
                           <LineChart :chartData="{ labels: Array(taskStatus.chart.length).fill(''), datasets: [{ label: 'Tasks', data: taskStatus.chart, borderColor: '#0A97B0', backgroundColor: 'rgba(10,151,176,0.1)', fill: true, tension: 0.4 }] }" />
                         </div>
-                        <div class="flex justify-between mt-4">
-                            <div class="flex flex-col items-center">
+                    <div class="flex justify-between mt-4 gap-2">
+                        <div class="flex flex-col items-center flex-1">
                                 <span class="text-lg font-bold text-[#0A97B0]">{{ taskStatus.complete }}</span>
-                                <span class="text-xs text-gray-400">Complete Task</span>
+                            <span class="text-xs text-gray-400 text-center">Complete Task</span>
                             </div>
-                            <div class="flex flex-col items-center">
+                        <div class="flex flex-col items-center flex-1">
                                 <span class="text-lg font-bold text-yellow-500">{{ taskStatus.pending }}</span>
-                                <span class="text-xs text-gray-400">Pending Task</span>
+                            <span class="text-xs text-gray-400 text-center">Pending Task</span>
                             </div>
-                            <div class="flex flex-col items-center">
+                        <div class="flex flex-col items-center flex-1">
                                 <span class="text-lg font-bold text-red-500">{{ taskStatus.due }}</span>
-                                <span class="text-xs text-gray-400">Due Task</span>
-                            </div>
+                            <span class="text-xs text-gray-400 text-center">Due Task</span>
                         </div>
                     </div>
                 </div>
+            </section>
+
                 <!-- Row 3: Recent Order (1/2) + New Customer (1/2) -->
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">Recent Order</h2>
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Recent Order</h2>
                         </div>
-                        <div class="overflow-x-auto">
+                    <div class="overflow-x-auto flex-1">
                           <table class="min-w-full text-xs">
                             <thead>
-                              <tr>
-                                <th>IMAGE</th>
-                                <th>CUSTOMER NAME</th>
-                                <th>QTY</th>
-                                <th>DATE</th>
-                                <th>PRICE</th>
-                                <th>STATUS</th>
-                                <th>ACTION</th>
+                          <tr class="border-b border-gray-200">
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">IMAGE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">CUSTOMER NAME</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">QTY</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden sm:table-cell">DATE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden md:table-cell">PRICE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">STATUS</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">ACTION</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(order, i) in recentOrders" :key="i">
-                                <td><img :src="`/images/${order.image}`" alt="" class="w-8 h-8 rounded" /></td>
-                                <td>{{ order.customer }}</td>
-                                <td>{{ order.qty }}</td>
-                                <td>{{ order.date }}</td>
-                                <td>{{ order.price }}</td>
-                                <td>
-                                  <span :class="order.status === 'Paid' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded">
+                          <tr v-for="(order, i) in recentOrders" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="px-2 py-2"><img :src="`/images/${order.image}`" alt="" class="w-6 h-6 sm:w-8 sm:h-8 rounded object-cover" /></td>
+                            <td class="px-2 py-2 font-medium text-gray-900 truncate max-w-[100px] sm:max-w-[150px]">{{ order.customer }}</td>
+                            <td class="px-2 py-2">{{ order.qty }}</td>
+                            <td class="px-2 py-2 hidden sm:table-cell text-gray-600">{{ order.date }}</td>
+                            <td class="px-2 py-2 hidden md:table-cell font-medium">{{ order.price }}</td>
+                            <td class="px-2 py-2">
+                              <span :class="order.status === 'Paid' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded text-xs">
                                     {{ order.status }}
                                   </span>
                                 </td>
-                                <td>
-                                  <button class="text-gray-400 hover:text-[#0A97B0]">
-                                    <i class="material-icons-outlined">more_vert</i>
+                            <td class="px-2 py-2">
+                              <button class="text-gray-400 hover:text-[#0A97B0] p-1">
+                                <i class="material-icons-outlined text-sm">more_vert</i>
                                   </button>
                                 </td>
                               </tr>
@@ -255,42 +260,41 @@ const selectedDate = ref(new Date());
                           </table>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow p-6 min-h-[220px] flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <h2 class="font-semibold text-gray-800">New Customer</h2>
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">New Customer</h2>
                         </div>
-                        <div class="overflow-x-auto">
+                    <div class="overflow-x-auto flex-1">
                           <table class="min-w-full text-xs">
                             <thead>
-                              <tr>
-                                <th>IMAGE</th>
-                                <th>CUSTOMER NAME</th>
-                                <th>COUNTRY</th>
-                                <th>DATE</th>
-                                <th>STATUS</th>
-                                <th>ACTION</th>
+                          <tr class="border-b border-gray-200">
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">IMAGE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">CUSTOMER NAME</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden sm:table-cell">COUNTRY</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden md:table-cell">DATE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">STATUS</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">ACTION</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(customer, i) in newCustomers" :key="i">
-                                <td><img :src="`/images/${customer.image}`" alt="" class="w-8 h-8 rounded-full" /></td>
-                                <td>{{ customer.name }}</td>
-                                <td>{{ customer.country }}</td>
-                                <td>{{ customer.date }}</td>
-                                <td>
-                                  <span :class="customer.status === 'Active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded">
+                          <tr v-for="(customer, i) in newCustomers" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="px-2 py-2"><img :src="`/images/${customer.image}`" alt="" class="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover" /></td>
+                            <td class="px-2 py-2 font-medium text-gray-900 truncate max-w-[100px] sm:max-w-[150px]">{{ customer.name }}</td>
+                            <td class="px-2 py-2 hidden sm:table-cell text-gray-600">{{ customer.country }}</td>
+                            <td class="px-2 py-2 hidden md:table-cell text-gray-600">{{ customer.date }}</td>
+                            <td class="px-2 py-2">
+                              <span :class="customer.status === 'Active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded text-xs">
                                     {{ customer.status }}
                                   </span>
                                 </td>
-                                <td>
-                                  <button class="text-gray-400 hover:text-[#0A97B0]">
-                                    <i class="material-icons-outlined">more_vert</i>
+                            <td class="px-2 py-2">
+                              <button class="text-gray-400 hover:text-[#0A97B0] p-1">
+                                <i class="material-icons-outlined text-sm">more_vert</i>
                                   </button>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                        </div>
                     </div>
                 </div>
             </section>

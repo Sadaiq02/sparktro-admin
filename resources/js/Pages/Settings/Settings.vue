@@ -10,7 +10,7 @@
           @click="currentTab = tab.key"
         >
           <span v-if="tab.icon" :class="tab.icon" class="tab-icon"></span>
-          {{ tab.label }}
+          <span class="tab-label">{{ tab.label }}</span>
         </button>
       </div>
     </div>
@@ -29,10 +29,10 @@ import NotificationSetting from './NotificationSetting.vue';
 import LanguageSetting from './LanguageSetting.vue';
 
 const tabs = [
-  { key: 'general', label: 'General Setting' },
-  { key: 'theme', label: 'Theme Setting' },
-  { key: 'notification', label: 'Notification' },
-  { key: 'language', label: 'Language' },
+  { key: 'general', label: 'General Setting', icon: 'material-icons-outlined' },
+  { key: 'theme', label: 'Theme Setting', icon: 'material-icons-outlined' },
+  { key: 'notification', label: 'Notification', icon: 'material-icons-outlined' },
+  { key: 'language', label: 'Language', icon: 'material-icons-outlined' },
 ];
 
 const currentTab = ref('general');
@@ -61,107 +61,175 @@ defineOptions({
 .settings-container {
   background: #fff;
   border-radius: 12px;
-  margin: 32px auto 0 auto;
-  padding: 32px 32px 40px 32px;
+  margin: 16px auto 0 auto;
+  padding: 20px 16px 24px 16px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.06);
   max-width: 1000px;
   width: 100%;
   border: 1.5px solid #e5e7eb;
 }
+
 .settings-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 16px;
 }
+
 .settings-title {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
   color: #23293a;
 }
+
 .settings-tabs {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
+
 .settings-tab {
   background: #f8fafc;
   border: 1.5px solid #e5e7eb;
   border-radius: 8px;
-  padding: 10px 28px;
-  font-size: 1.08rem;
+  padding: 8px 16px;
+  font-size: 0.9rem;
   font-weight: 500;
   color: #1e2533;
   cursor: pointer;
   transition: all 0.2s;
-  min-width: 140px;
+  min-width: 120px;
   text-align: center;
   outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  white-space: nowrap;
 }
+
+.settings-tab:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
 .settings-tab.active {
   background: #e6f7fa;
   border-color: #0a97b0;
   color: #0a97b0;
 }
+
+.tab-icon {
+  font-size: 1.1rem;
+}
+
+.tab-label {
+  font-size: 0.9rem;
+}
+
 .settings-content {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 /* Responsive styles */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .settings-container {
-    max-width: 99vw;
-    padding: 18px 6vw 24px 6vw;
+    margin: 8px 8px 0 8px;
+    padding: 16px 12px 20px 12px;
+    border-radius: 8px;
   }
+  
   .settings-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
+  
+  .settings-title {
+    font-size: 1.3rem;
+  }
+  
   .settings-tabs {
     width: 100%;
     justify-content: flex-start;
     gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  
+  .settings-tab {
+    min-width: 100px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  
+  .tab-label {
+    font-size: 0.85rem;
   }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 480px) {
   .settings-container {
-    max-width: 100vw;
-    padding: 0 0 12px 0;
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
+    margin: 4px 4px 0 4px;
+    padding: 12px 8px 16px 8px;
+    border-radius: 6px;
   }
+  
   .settings-header {
-    flex-direction: column;
-    align-items: stretch;
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
+  
   .settings-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
+  
   .settings-tabs {
-    flex-direction: column;
     gap: 6px;
-    width: 100%;
   }
+  
   .settings-tab {
-    width: 100%;
-    min-width: unset;
-    padding: 12px 0;
+    min-width: 90px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .tab-icon {
     font-size: 1rem;
   }
+  
+  .tab-label {
+    font-size: 0.8rem;
+  }
+  
   .settings-content {
-    margin-top: 8px;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .settings-container {
+    margin: 2px 2px 0 2px;
+    padding: 8px 6px 12px 6px;
+  }
+  
+  .settings-tab {
+    min-width: 80px;
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+  
+  .tab-icon {
+    font-size: 0.9rem;
+  }
+  
+  .tab-label {
+    font-size: 0.75rem;
   }
 }
 </style> 
