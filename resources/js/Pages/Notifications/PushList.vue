@@ -136,12 +136,10 @@ function toggleRow(id) {
 <template>
   <Head title="Push Notifications" />
   <AuthenticatedLayout>
-    <div class="min-h-screen bg-[#F6F7F9] flex flex-col">
-      <div class="flex-1 flex flex-col">
-        <div class="w-full max-w-[1200px] mx-auto px-4 md:px-8 py-8">
-          <div class="bg-white rounded-2xl shadow border border-gray-200 p-8 w-full">
-            <!-- Header & Controls -->
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <div class="w-full min-h-[calc(100vh-80px)] bg-[#F8FAFC] flex items-start">
+      <main class="flex-1 flex flex-col items-center">
+        <div class="w-full max-w-6xl bg-white rounded-2xl shadow border border-gray-200 mt-10 mb-8 p-0">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between px-8 pt-8 pb-4 gap-4">
             <h2 class="text-2xl font-bold text-gray-900">Push Notifications</h2>
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto items-stretch sm:items-center justify-end">
               <div class="flex flex-row gap-2 items-center w-full sm:w-auto">
@@ -152,25 +150,21 @@ function toggleRow(id) {
                   <option value="50">50</option>
                 </select>
               </div>
-                <div class="relative w-full sm:w-64">
-                  <input v-model="search" type="text" placeholder="Search" class="border border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-lg px-3 py-2 text-sm w-full transition pr-10" />
-                  <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                </div>
-                <button class="bg-[#0A97B0] hover:bg-[#087c8d] text-white font-semibold rounded-lg px-5 py-2 text-sm flex items-center gap-2 transition shadow-sm">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                  Create Notification
-                </button>
-              </div>
+              <input v-model="search" type="text" placeholder="Search" class="border border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-lg px-3 py-2 text-sm w-full sm:w-56 transition" />
+              <button class="bg-[#0A97B0] hover:bg-[#087c8d] text-white font-semibold rounded-lg px-5 py-2 text-sm flex items-center gap-2 transition shadow-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                Create Notification
+              </button>
             </div>
-            <!-- Table -->
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm text-left text-gray-900 border-separate border-spacing-0">
+          </div>
+          <div class="overflow-x-auto px-8 pb-4">
+            <table class="min-w-[1100px] w-full text-sm text-left text-gray-900 border-separate border-spacing-0">
               <thead>
                 <tr class="border-b border-gray-200">
-                    <th class="px-4 py-3 align-middle font-semibold text-gray-500 bg-white sticky left-0 z-10">
-                      <input type="checkbox" :checked="selected.length === paginatedPush.length && paginatedPush.length > 0" @change="toggleAll" class="accent-[#0A97B0] w-4 h-4 rounded" aria-label="Select all" />
-                    </th>
-                    <th class="px-4 py-3 align-middle font-semibold text-gray-500">IMAGE</th>
+                  <th class="px-4 py-3 align-middle font-semibold text-gray-500 bg-white sticky left-0 z-10">
+                    <input type="checkbox" :checked="selected.length === paginatedPush.length && paginatedPush.length > 0" @change="toggleAll" class="accent-[#0A97B0] w-4 h-4 rounded" aria-label="Select all" />
+                  </th>
+                  <th class="px-4 py-3 align-middle font-semibold text-gray-500">IMAGE</th>
                   <th class="px-4 py-3 align-middle font-semibold text-gray-500">MESSAGE</th>
                   <th class="px-4 py-3 align-middle font-semibold text-gray-500">AUDIENCE</th>
                   <th class="px-4 py-3 align-middle font-semibold text-gray-500">CREATED DATE</th>
@@ -181,33 +175,33 @@ function toggleRow(id) {
               </thead>
               <tbody>
                 <tr v-if="loading">
-                    <td colspan="8" class="text-center py-8 text-gray-400">Loading...</td>
+                  <td colspan="8" class="text-center py-8 text-gray-400">Loading...</td>
                 </tr>
                 <tr v-else-if="error">
-                    <td colspan="8" class="text-center py-8 text-red-500">{{ error }}</td>
+                  <td colspan="8" class="text-center py-8 text-red-500">{{ error }}</td>
                 </tr>
                 <tr v-else-if="paginatedPush.length === 0">
-                    <td colspan="8" class="text-center py-8 text-gray-400">No notifications found.</td>
+                  <td colspan="8" class="text-center py-8 text-gray-400">No notifications found.</td>
                 </tr>
                 <tr v-else v-for="(n, idx) in paginatedPush" :key="n.id" :class="idx % 2 === 1 ? 'bg-[#F8FAFC]' : 'bg-white'">
                   <td class="px-4 py-3 align-middle">
-                      <input type="checkbox" :checked="selected.includes(n.id)" @change="toggleRow(n.id)" class="accent-[#0A97B0] w-4 h-4 rounded" :aria-label="'Select notification ' + n.message" />
-                    </td>
-                    <td class="px-4 py-3 align-middle">
-                      <img :src="n.image" alt="img" class="w-12 h-12 rounded-full object-cover border border-gray-200" />
+                    <input type="checkbox" :checked="selected.includes(n.id)" @change="toggleRow(n.id)" class="accent-[#0A97B0] w-4 h-4 rounded" :aria-label="'Select notification ' + n.message" />
+                  </td>
+                  <td class="px-4 py-3 align-middle">
+                    <img :src="n.image" alt="img" class="w-10 h-10 rounded-full object-cover border border-gray-200" />
                   </td>
                   <td class="px-4 py-3 align-middle min-w-[220px]">
-                      <div class="font-semibold text-gray-900 text-[15px] truncate max-w-xs">{{ n.message }}</div>
-                      <div class="text-xs text-gray-500 truncate max-w-xs">{{ n.details }}</div>
+                    <div class="font-semibold text-gray-900 text-[15px]">{{ n.message }}</div>
+                    <div class="text-xs text-gray-500">{{ n.details }}</div>
                   </td>
-                    <td class="px-4 py-3 align-middle text-[15px] truncate max-w-[180px]">{{ n.audience }}</td>
+                  <td class="px-4 py-3 align-middle text-[15px]">{{ n.audience }}</td>
                   <td class="px-4 py-3 align-middle text-[15px]">{{ n.created }}</td>
                   <td class="px-4 py-3 align-middle text-[15px]">{{ n.scheduled }}</td>
                   <td class="px-4 py-3 align-middle">
                     <span :class="['inline-block px-3 py-1 rounded-full border text-xs font-semibold', statusClass(n.status)]">{{ n.status }}</span>
                   </td>
                   <td class="px-4 py-3 align-middle text-right">
-                      <button class="text-gray-400 hover:text-[#0A97B0] p-2 rounded-full transition-colors" aria-label="Actions">
+                    <button class="text-gray-400 hover:text-[#0A97B0] p-2 rounded-full transition-colors" aria-label="Actions">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
                     </button>
                   </td>
@@ -215,20 +209,18 @@ function toggleRow(id) {
               </tbody>
             </table>
           </div>
-          <!-- Pagination & Footer -->
-            <div class="flex flex-col md:flex-row items-center justify-between px-2 pb-2 pt-6 gap-2 md:gap-0">
+          <div class="flex flex-col md:flex-row items-center justify-between px-8 pb-8 pt-2 gap-2 md:gap-0">
             <div class="text-xs text-gray-500">
               Show {{ paginatedPush.length }} out of {{ filteredPush.length }}
             </div>
-              <div class="flex gap-1 items-center">
+            <div class="flex gap-1">
               <button @click="setPage(page - 1)" :disabled="page === 1" class="px-2 py-1 rounded border border-gray-200 text-xs bg-white hover:bg-gray-100 disabled:opacity-50">Prev</button>
               <button v-for="p in totalPages" :key="p" @click="setPage(p)" :class="[p === page ? 'bg-[#0A97B0] text-white' : 'bg-white text-gray-700', 'px-2 py-1 rounded border border-gray-200 text-xs hover:bg-gray-100']">{{ p }}</button>
               <button @click="setPage(page + 1)" :disabled="page === totalPages" class="px-2 py-1 rounded border border-gray-200 text-xs bg-white hover:bg-gray-100 disabled:opacity-50">Next</button>
-              </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   </AuthenticatedLayout>
 </template>

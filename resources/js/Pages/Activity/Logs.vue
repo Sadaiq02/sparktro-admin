@@ -147,20 +147,22 @@ function setPage(p) {
 <template>
   <Head title="Activity Logs" />
   <AuthenticatedLayout>
-    <div class="flex justify-center items-start min-h-[calc(100vh-80px)] bg-[#F8FAFC] py-8 px-2">
-      <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg border border-gray-100 p-0">
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between px-8 pt-8 pb-4 gap-4">
-          <h2 class="text-2xl font-bold text-gray-900">Activity Logs</h2>
-          <div class="flex flex-row gap-3 items-center w-full md:w-auto justify-end">
-            <label class="text-sm text-gray-500 font-medium mr-2 hidden md:inline-block">Show</label>
-            <select v-model="perPage" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 w-20">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-            </select>
-            <input v-model="search" type="text" placeholder="Search" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 w-56" />
-            <select v-model="activityType" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 w-40">
+    <div class="flex justify-center items-start min-h-[calc(100vh-80px)] bg-[#F8FAFC] py-4 sm:py-8 px-1 sm:px-2">
+      <div class="w-full max-w-7xl bg-white rounded-2xl shadow border border-gray-200 p-0">
+        <!-- Controls -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between px-4 sm:px-8 pt-6 sm:pt-8 pb-2 sm:pb-4 gap-3 sm:gap-4">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Activity Logs</h2>
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto items-stretch sm:items-center justify-end">
+            <div class="flex flex-row gap-2 items-center w-full sm:w-auto">
+              <label class="text-xs sm:text-sm text-gray-500 font-medium mr-2 hidden md:inline-block">Show</label>
+              <select v-model="perPage" class="border border-gray-300 rounded-lg px-2 sm:px-3 py-2 text-xs sm:text-sm focus:ring-blue-500 focus:border-blue-500 w-16 sm:w-20">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+            <input v-model="search" type="text" placeholder="Search" class="border border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-lg px-2 sm:px-3 py-2 text-xs sm:text-sm w-full sm:w-56 transition" />
+            <select v-model="activityType" class="border border-gray-300 rounded-lg px-2 sm:px-3 py-2 text-xs sm:text-sm focus:ring-blue-500 focus:border-blue-500 w-full sm:w-40">
               <option value="">Activity Type</option>
               <option value="Login">Login</option>
               <option value="Edit">Edit</option>
@@ -169,20 +171,22 @@ function setPage(p) {
           </div>
         </div>
         <!-- Table -->
-        <div class="overflow-x-auto px-8 pb-4">
-          <table class="min-w-full text-sm text-left text-gray-900">
-            <thead class="bg-[#F8FAFC] text-gray-500 font-semibold text-xs border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-3 align-middle"><input type="checkbox" class="form-checkbox w-4 h-4 align-middle" /></th>
-                <th class="px-4 py-3 align-middle font-semibold">TIMESTAMP</th>
-                <th class="px-4 py-3 align-middle font-semibold">USER</th>
-                <th class="px-4 py-3 align-middle font-semibold">DETAILS</th>
-                <th class="px-4 py-3 align-middle font-semibold">STATUS TYPE</th>
-                <th class="px-4 py-3 align-middle font-semibold">IP ADDRESS</th>
-                <th class="px-4 py-3 align-middle font-semibold text-right">ACTION</th>
+        <div class="overflow-x-auto px-2 sm:px-8 pb-4">
+          <table class="min-w-[900px] w-full text-xs sm:text-sm text-left text-gray-900 border-separate border-spacing-0">
+            <thead>
+              <tr class="border-b border-gray-200">
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500 bg-white sticky left-0 z-10">
+                  <input type="checkbox" class="form-checkbox w-4 h-4 align-middle" />
+                </th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500">TIMESTAMP</th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500">USER</th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500">DETAILS</th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500">STATUS TYPE</th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500">IP ADDRESS</th>
+                <th class="px-3 sm:px-4 py-3 align-middle font-semibold text-gray-500 text-right">ACTION</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
+            <tbody>
               <tr v-if="loading">
                 <td colspan="7" class="text-center py-8 text-gray-400">Loading...</td>
               </tr>
@@ -192,20 +196,22 @@ function setPage(p) {
               <tr v-else-if="paginatedActivities.length === 0">
                 <td colspan="7" class="text-center py-8 text-gray-400">No activity logs found.</td>
               </tr>
-              <tr v-else v-for="activity in paginatedActivities" :key="activity.id" class="hover:bg-[#F8FAFC] group">
-                <td class="px-4 py-3 align-middle"><input type="checkbox" class="form-checkbox w-4 h-4 align-middle" /></td>
-                <td class="px-4 py-3 align-middle whitespace-nowrap text-[15px] font-medium">{{ activity.timestamp }}</td>
-                <td class="px-4 py-3 align-middle">
-                  <div class="flex items-center gap-3">
-                    <img :src="activity.user.avatar" alt="avatar" class="w-8 h-8 rounded-full object-cover border border-gray-200" />
+              <tr v-else v-for="(activity, idx) in paginatedActivities" :key="activity.id" :class="idx % 2 === 1 ? 'bg-[#F8FAFC]' : 'bg-white'">
+                <td class="px-3 sm:px-4 py-3 align-middle">
+                  <input type="checkbox" class="form-checkbox w-4 h-4 align-middle" />
+                </td>
+                <td class="px-3 sm:px-4 py-3 align-middle whitespace-nowrap text-[13px] sm:text-[15px] font-medium">{{ activity.timestamp }}</td>
+                <td class="px-3 sm:px-4 py-3 align-middle">
+                  <div class="flex items-center gap-2 sm:gap-3">
+                    <img :src="activity.user.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activity.user.name) + '&background=E6F7FA&color=0A97B0&size=64'" alt="avatar" class="w-8 h-8 rounded-full object-cover border border-gray-200 bg-[#E6F7FA]" />
                     <div>
-                      <div class="font-semibold text-gray-900 text-[15px]">{{ activity.user.name }}</div>
+                      <div class="font-semibold text-gray-900 text-[13px] sm:text-[15px]">{{ activity.user.name }}</div>
                       <div class="text-xs text-gray-500">{{ activity.user.email }}</div>
                     </div>
                   </div>
                 </td>
-                <td class="px-4 py-3 align-middle text-[15px]">{{ activity.details }}</td>
-                <td class="px-4 py-3 align-middle">
+                <td class="px-3 sm:px-4 py-3 align-middle text-[13px] sm:text-[15px]">{{ activity.details }}</td>
+                <td class="px-3 sm:px-4 py-3 align-middle">
                   <span :class="{
                     'bg-green-50 text-green-600 border border-green-200': activity.status === 'Login',
                     'bg-blue-50 text-blue-600 border border-blue-200': activity.status === 'Edit',
@@ -214,8 +220,8 @@ function setPage(p) {
                     {{ activity.status }}
                   </span>
                 </td>
-                <td class="px-4 py-3 align-middle text-[15px]">{{ activity.ip }}</td>
-                <td class="px-4 py-3 align-middle text-right">
+                <td class="px-3 sm:px-4 py-3 align-middle text-[13px] sm:text-[15px]">{{ activity.ip }}</td>
+                <td class="px-3 sm:px-4 py-3 align-middle text-right">
                   <button class="text-gray-400 hover:text-[#0A97B0] p-2 rounded-full transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
                   </button>
@@ -225,7 +231,7 @@ function setPage(p) {
           </table>
         </div>
         <!-- Pagination & Footer -->
-        <div class="flex flex-col md:flex-row items-center justify-between px-8 pb-8 pt-2 gap-2 md:gap-0">
+        <div class="flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 pb-6 sm:pb-8 pt-2 gap-2 md:gap-0">
           <div class="text-xs text-gray-500">
             Show {{ paginatedActivities.length }} out of {{ filteredActivities.length }}
           </div>
