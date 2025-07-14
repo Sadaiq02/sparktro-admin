@@ -87,11 +87,11 @@ function toggleRow(id) {
             <div class="flex items-center gap-2">
               <label class="text-sm text-gray-500 font-medium hidden sm:block">Show</label>
               <select v-model="perPage" class="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-400 w-20">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-              </select>
-            </div>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
             <input 
               v-model="search" 
               type="text" 
@@ -115,7 +115,7 @@ function toggleRow(id) {
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                   </svg>
-                </button>
+              </button>
               </div>
               <div class="space-y-2">
                 <div>
@@ -154,7 +154,7 @@ function toggleRow(id) {
               <tr>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap">
                   <input type="checkbox" :checked="selected.length === paginatedPush.length && paginatedPush.length > 0" @change="toggleAll" class="accent-[#0A97B0] w-4 h-4 rounded" />
-                </th>
+                  </th>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap">IMAGE</th>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap min-w-[180px]">MESSAGE</th>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap hidden lg:table-cell">AUDIENCE</th>
@@ -162,29 +162,29 @@ function toggleRow(id) {
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap hidden xl:table-cell">SCHEDULED DATE</th>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap">STATUS</th>
                 <th class="px-4 py-3 font-medium text-gray-500 whitespace-nowrap text-right">ACTION</th>
-              </tr>
-            </thead>
+                </tr>
+              </thead>
             <tbody class="divide-y divide-gray-200">
-              <tr v-if="loading">
+                <tr v-if="loading">
                 <td colspan="8" class="px-4 py-6 text-center text-gray-400">Loading...</td>
-              </tr>
-              <tr v-else-if="error">
+                </tr>
+                <tr v-else-if="error">
                 <td colspan="8" class="px-4 py-6 text-center text-red-500">{{ error }}</td>
-              </tr>
-              <tr v-else-if="paginatedPush.length === 0">
+                </tr>
+                <tr v-else-if="paginatedPush.length === 0">
                 <td colspan="8" class="px-4 py-6 text-center text-gray-400">No notifications found.</td>
-              </tr>
+                </tr>
               <tr v-else v-for="(n, idx) in paginatedPush" :key="n.id" class="hover:bg-gray-50">
                 <td class="px-4 py-3">
                   <input type="checkbox" :checked="selected.includes(n.id)" @change="toggleRow(n.id)" class="accent-[#0A97B0] w-4 h-4 rounded" />
-                </td>
+                  </td>
                 <td class="px-4 py-3">
-                  <img :src="n.image" alt="img" class="w-10 h-10 rounded-full object-cover border border-gray-200" />
-                </td>
+                    <img :src="n.image" alt="img" class="w-10 h-10 rounded-full object-cover border border-gray-200" />
+                  </td>
                 <td class="px-4 py-3">
                   <div class="font-semibold text-gray-800">{{ n.message }}</div>
                   <div class="text-xs text-gray-500 line-clamp-2">{{ n.details }}</div>
-                </td>
+                  </td>
                 <td class="px-4 py-3 hidden lg:table-cell">{{ n.audience }}</td>
                 <td class="px-4 py-3 hidden xl:table-cell">{{ n.created }}</td>
                 <td class="px-4 py-3 hidden xl:table-cell">{{ n.scheduled }}</td>
@@ -193,24 +193,24 @@ function toggleRow(id) {
                         :class="statusClass(n.status)">
                     {{ n.status }}
                   </span>
-                </td>
+                  </td>
                 <td class="px-4 py-3 text-right">
                   <button class="text-gray-400 hover:text-gray-600 p-1 rounded hover:bg-gray-100">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                     </svg>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
         <!-- Pagination -->
         <div v-if="totalPages > 1" class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 border-t border-gray-200 gap-4">
           <div class="text-sm text-gray-500">
             Showing <span class="font-medium">{{ (page - 1) * perPage + 1 }}</span> to <span class="font-medium">{{ Math.min(page * perPage, filteredPush.length) }}</span> of <span class="font-medium">{{ filteredPush.length }}</span> results
-          </div>
+            </div>
           <div class="flex items-center gap-2">
             <button 
               @click="setPage(page - 1)" 

@@ -1,103 +1,127 @@
-import defaultTheme from "tailwindcss/defaultTheme";
-import forms from "@tailwindcss/forms";
+const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
     content: [
-        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        "./storage/framework/views/*.php",
-        "./resources/views/**/*.blade.php",
-        "./resources/js/**/*.vue",
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
     ],
-    safelist: ["bg-[#0A97B0]"],
+    darkMode: 'class',
     theme: {
         extend: {
-            fontFamily: {
-                sans: ["'Work Sans'", ...defaultTheme.fontFamily.sans],
-            },
             colors: {
-                gray: {
-                    sparktro: "#F1F1F1",
+                'primary': {
+                    DEFAULT: 'var(--primary)',
+                    hover: 'var(--primary-hover)',
+                    light: 'var(--primary-light)'
                 },
-                primary: {
-                    sparktro: "#0A97B0",
+                'bg': {
+                    white: 'var(--bg-white)',
+                    light: 'var(--bg-light)',
+                    lighter: 'var(--bg-lighter)',
+                    gray: 'var(--bg-gray)',
                 },
-                black: {
-                    sparktro: "#1E2533",
+                'text': {
+                    primary: 'var(--text-primary)',
+                    secondary: 'var(--text-secondary)',
+                    body: 'var(--text-body)',
+                    muted: 'var(--text-muted)',
                 },
-                red: {
-                    sparktro: "#FF4340",
+                'border': {
+                    DEFAULT: 'var(--border)',
+                    light: 'var(--border-light)',
                 },
-                yellow: {
-                    sparktro: "#FDCB02",
+                'success': {
+                    DEFAULT: 'var(--success)',
+                    light: 'var(--success-light)'
                 },
-                textTeal: {
-                    sparktro: "#5BD1D7",
+                'warning': {
+                    DEFAULT: 'var(--warning)',
+                    light: 'var(--warning-light)'
                 },
+                'danger': {
+                    DEFAULT: 'var(--danger)',
+                    light: 'var(--danger-light)'
+                },
+                gray: colors.gray,
+            },
+            ringColor: ({ theme }) => ({
+                DEFAULT: theme('colors.primary.DEFAULT'),
+                ...theme('colors'),
+            }),
+            ringOpacity: {
+                DEFAULT: '0.2',
+                '20': '0.2',
+                '50': '0.5'
+            },
+            borderRadius: {
+                'sm': 'var(--radius-sm)',
+                'md': 'var(--radius-md)',
+                'lg': 'var(--radius-lg)',
+                'xl': 'var(--radius-xl)',
+                '2xl': 'var(--radius-2xl)',
+                'full': 'var(--radius-full)',
+            },
+            boxShadow: {
+                'sm': 'var(--shadow-sm)',
+                'DEFAULT': 'var(--shadow)',
+                'md': 'var(--shadow-md)',
+                'lg': 'var(--shadow-lg)',
+                'card': 'var(--shadow-card)',
+                'button': 'var(--shadow-button)',
+            },
+            fontFamily: {
+                sans: ['Work Sans', ...defaultTheme.fontFamily.sans],
+            },
+            spacing: {
+                1: 'var(--space-1)',
+                2: 'var(--space-2)',
+                3: 'var(--space-3)',
+                4: 'var(--space-4)',
+                5: 'var(--space-5)',
+                6: 'var(--space-6)',
+                8: 'var(--space-8)',
+                10: 'var(--space-10)',
+                12: 'var(--space-12)',
+            },
+            fontSize: {
+                xs: 'var(--text-xs)',
+                sm: 'var(--text-sm)',
+                base: 'var(--text-base)',
+                lg: 'var(--text-lg)',
+                xl: 'var(--text-xl)',
+                '2xl': 'var(--text-2xl)',
+            },
+            lineHeight: {
+                none: 'var(--line-height-none)',
+                tight: 'var(--line-height-tight)',
+                snug: 'var(--line-height-snug)',
+                normal: 'var(--line-height-normal)',
+                relaxed: 'var(--line-height-relaxed)',
+                loose: 'var(--line-height-loose)',
+            },
+            transitionProperty: {
+                all: 'var(--transition-all)',
+                colors: 'var(--transition-colors)',
+                opacity: 'var(--transition-opacity)',
+                shadow: 'var(--transition-shadow)',
+            },
+            zIndex: {
+                0: 'var(--z-0)',
+                10: 'var(--z-10)',
+                20: 'var(--z-20)',
+                30: 'var(--z-30)',
+                40: 'var(--z-40)',
+                50: 'var(--z-50)',
+                auto: 'var(--z-auto)',
             },
             screens: {
                 'xs': '475px',
-                '3xl': '1600px',
-                '4xl': '1920px',
-            },
-            spacing: {
-                '18': '4.5rem',
-                '88': '22rem',
-                '128': '32rem',
-            },
-            maxWidth: {
-                '8xl': '88rem',
-                '9xl': '96rem',
-            },
-            minHeight: {
-                'screen-75': '75vh',
-            },
-            fontSize: {
-                '55': '55rem',
-            },
-            opacity: {
-                '80': '.8',
-            },
-            zIndex: {
-                '2': 2,
-                '3': 3,
-            },
-            inset: {
-                '-100': '-100%',
-                '-225-px': '-225px',
-                '-160-px': '-160px',
-                '-150-px': '-150px',
-                '-94-px': '-94px',
-                '-50-px': '-50px',
-                '-29-px': '-29px',
-                '-20-px': '-20px',
-                '25-px': '25px',
-                '40-px': '40px',
-                '95-px': '95px',
-                '145-px': '145px',
-                '195-px': '195px',
-                '210-px': '210px',
-                '260-px': '260px',
-            },
-            height: {
-                '95-px': '95px',
-                '70-px': '70px',
-                '350-px': '350px',
-                '500-px': '500px',
-                '600-px': '600px',
-            },
-            maxHeight: {
-                '860-px': '860px',
-            },
-            minWidth: {
-                '140-px': '140px',
-                '48': '12rem',
-            },
-            backgroundSize: {
-                full: '100%',
+                ...defaultTheme.screens,
             },
         },
     },
-
-    plugins: [forms],
+    plugins: [],
 };
