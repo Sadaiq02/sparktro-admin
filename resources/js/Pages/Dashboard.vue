@@ -28,49 +28,38 @@ const revenueChartData = {
   datasets: [
     {
       label: 'Revenue',
-      data: [30, 40, 45, 50, 49, 60, 70, 91, 125, 150, 200, 100],
+      data: [0.2, 0.3, 0.4, 0.5, 0.7, 0.9, 1.0, 0.95, 0.85, 0.8, 0.7, 0.6],
       borderColor: '#0A97B0',
-      backgroundColor: 'rgba(10, 151, 176, 0.1)',
+      backgroundColor: 'rgba(10,151,176,0.1)',
       fill: true,
       tension: 0.4,
-      pointRadius: 0,
-      pointHitRadius: 10,
-      borderWidth: 2
     },
     {
       label: 'Expenses',
-      data: [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+      data: [0.1, 0.15, 0.2, 0.25, 0.4, 0.5, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35],
       borderColor: '#A0AEC0',
-      backgroundColor: 'rgba(160, 174, 192, 0.1)',
+      backgroundColor: 'rgba(160,174,192,0.1)',
       fill: true,
       tension: 0.4,
-      pointRadius: 0,
-      pointHitRadius: 10,
-      borderWidth: 2
-    }
-  ]
+    },
+  ],
 };
 
+// Sales Chart Data (Bar)
 const salesChartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   datasets: [
     {
       label: 'Sales',
-      data: [65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175],
+      data: [0.3, 0.4, 0.8, 0.6, 0.7, 0.9, 0.8, 0.5, 0.6, 0.7, 0.8, 0.9],
       backgroundColor: '#0A97B0',
-      borderRadius: 4,
-      barThickness: 12,
-      maxBarThickness: 12
     },
     {
-      label: 'Orders',
-      data: [45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155],
+      label: 'Order',
+      data: [0.2, 0.3, 0.5, 0.4, 0.5, 0.7, 0.6, 0.4, 0.5, 0.6, 0.7, 0.8],
       backgroundColor: '#A0AEC0',
-      borderRadius: 4,
-      barThickness: 12,
-      maxBarThickness: 12
-    }
-  ]
+    },
+  ],
 };
 
 // Browse Status Pie Data
@@ -131,227 +120,181 @@ const selectedDate = ref(new Date());
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-                <div class="flex items-center gap-4">
-                    <button class="btn-secondary">
-                        <span class="material-icons-outlined text-lg mr-2">file_download</span>
-                        Export
-                    </button>
-                    <button class="btn-primary">
-                        <span class="material-icons-outlined text-lg mr-2">add</span>
-                        Add New
-                    </button>
-                </div>
-            </div>
+            <h2
+                class="text-xl font-semibold leading-tight text-gray-800"
+            >
+                Dashboard
+            </h2>
         </template>
 
-        <div class="flex flex-col gap-6 p-6 bg-[#F8FAFC] min-h-screen">
+        <div class="flex flex-col gap-4 sm:gap-6 px-2 sm:px-8 md:px-8 bg-[#F8FAFC] min-h-screen">
             <!-- Stats Cards -->
-            <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                <div v-for="(stat, i) in stats" :key="i" 
-                    class="bg-white rounded-xl shadow-sm p-4 flex flex-col items-start border border-[#D6E2EF] hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-3 mb-3 w-full">
-                        <span :class="`inline-flex items-center justify-center w-10 h-10 rounded-full ${stat.bg} ${stat.color}`" 
-                            v-html="icons[stat.icon]"></span>
-                        <span class="text-sm text-gray-500 font-medium truncate">{{ stat.label }}</span>
+            <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
+                <div v-for="(stat, i) in stats" :key="i" class="bg-white rounded-xl shadow p-3 sm:p-4 flex flex-col items-start border border-gray-100 min-w-0">
+                    <div class="flex items-center gap-2 mb-2 w-full">
+                        <span :class="`inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full ${stat.bg} ${stat.color} flex-shrink-0`" v-html="icons[stat.icon]"></span>
+                        <span class="text-xs text-gray-500 font-medium truncate">{{ stat.label }}</span>
                     </div>
                     <div class="flex items-end gap-2 w-full">
-                        <span class="text-xl font-bold text-gray-900 truncate">{{ stat.value }}</span>
-                        <span class="text-xs flex items-center gap-1" :class="stat.up ? 'text-success' : 'text-danger'">
-                            <span class="material-icons-outlined text-sm">
-                                {{ stat.up ? 'trending_up' : 'trending_down' }}
-                            </span>
+                        <span class="text-lg sm:text-xl font-bold text-gray-900 truncate">{{ stat.value }}</span>
+                        <span class="text-xs flex items-center flex-shrink-0" :class="stat.up ? 'text-green-600' : 'text-red-600'">
+                            <svg v-if="stat.up" class="h-3 w-3 mr-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                            <svg v-else class="h-3 w-3 mr-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"/></svg>
                             {{ stat.change }}
                         </span>
                     </div>
                 </div>
             </section>
 
-            <!-- Charts Grid -->
-            <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                <!-- Revenue Chart -->
-                <div class="bg-white rounded-xl shadow-sm p-6 min-h-[400px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h2 class="text-lg font-semibold text-gray-800">Revenue</h2>
-                            <p class="text-sm text-gray-500 mt-1">Monthly revenue statistics</p>
+            <!-- Main Grid: Enhanced responsive layout -->
+            <section class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+                <!-- Row 1: Revenue (1/2) + Sales (1/2) -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[300px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="font-semibold text-gray-800 text-lg">Revenue</h2>
+                            <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <button class="text-sm text-gray-500 hover:text-primary">This Year</button>
-                            <button class="text-sm text-gray-500 hover:text-primary">This Month</button>
-                            <button class="text-sm text-gray-500 hover:text-primary">This Week</button>
+                        <div class="flex-1 min-h-[250px]">
+                        <LineChart :chartData="revenueChartData" :chartOptions="revenueChartOptions" :loading="loading" />
                         </div>
                     </div>
-                    <LineChart :chartData="revenueChartData" class="h-[300px]" />
                 </div>
-
-                <!-- Sales Chart -->
-                <div class="bg-white rounded-xl shadow-sm p-6 min-h-[400px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h2 class="text-lg font-semibold text-gray-800">Sales Statistics</h2>
-                            <p class="text-sm text-gray-500 mt-1">Monthly sales overview</p>
+                <div class="flex flex-col gap-6">
+                    <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[300px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="font-semibold text-gray-800 text-lg">Sales</h2>
+                            <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <button class="text-sm text-gray-500 hover:text-primary">This Year</button>
-                            <button class="text-sm text-gray-500 hover:text-primary">This Month</button>
-                            <button class="text-sm text-gray-500 hover:text-primary">This Week</button>
+                        <div v-if="!salesChartData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 min-h-[250px]">
+                          <BarChart :chartData="salesChartData" />
                         </div>
                     </div>
-                    <BarChart :chartData="salesChartData" class="h-[300px]" />
                 </div>
             </section>
 
-            <!-- Calendar, Browser Status, Task Status Grid -->
-            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Calendar -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800">Calendar Schedule</h2>
-                        <button class="text-sm text-primary hover:text-primary-dark">View All</button>
-                    </div>
-                    <CalendarWidget v-model:selectedDate="selectedDate" class="h-[250px]" />
-                </div>
-
-                <!-- Browser Status -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800">Browser Status</h2>
-                        <button class="text-sm text-primary hover:text-primary-dark">View Details</button>
-                    </div>
-                    <PieChart :data="browseStatusData" class="h-[250px]" />
-                </div>
-
-                <!-- Task Status -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800">Task Status</h2>
-                        <button class="text-sm text-primary hover:text-primary-dark">View All Tasks</button>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-primary">{{ taskStatus.complete }}</div>
-                            <div class="text-sm text-gray-500 mt-1">Complete</div>
+                <!-- Row 2: Calendar + Browse Status + Task Status -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Calendar Schedule</h2>
+                            <span class="text-xs text-gray-400">May 2025</span>
                         </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-warning">{{ taskStatus.pending }}</div>
-                            <div class="text-sm text-gray-500 mt-1">Pending</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-danger">{{ taskStatus.due }}</div>
-                            <div class="text-sm text-gray-500 mt-1">Due</div>
+                    <div class="flex-1 flex items-center justify-center">
+                          <CalendarWidget v-model:selectedDate="selectedDate" />
                         </div>
                     </div>
-                    <LineChart 
-                        :chartData="{ 
-                            labels: Array(taskStatus.chart.length).fill(''), 
-                            datasets: [{ 
-                                label: 'Tasks', 
-                                data: taskStatus.chart,
-                                borderColor: '#0A97B0',
-                                backgroundColor: 'rgba(10,151,176,0.1)',
-                                fill: true,
-                                tension: 0.4,
-                                pointRadius: 0
-                            }] 
-                        }" 
-                        class="h-[100px]"
-                    />
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Browse Status</h2>
+                        </div>
+                        <div v-if="!browseStatusData" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 flex items-center justify-center">
+                          <PieChart :data="browseStatusData" />
+                        </div>
+                    </div>
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Task Status</h2>
+                        </div>
+                        <div v-if="!taskStatus.chart" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
+                        <div v-else class="flex-1 flex items-center justify-center">
+                          <LineChart :chartData="{ labels: Array(taskStatus.chart.length).fill(''), datasets: [{ label: 'Tasks', data: taskStatus.chart, borderColor: '#0A97B0', backgroundColor: 'rgba(10,151,176,0.1)', fill: true, tension: 0.4 }] }" />
+                        </div>
+                    <div class="flex justify-between mt-4 gap-2">
+                        <div class="flex flex-col items-center flex-1">
+                                <span class="text-lg font-bold text-[#0A97B0]">{{ taskStatus.complete }}</span>
+                            <span class="text-xs text-gray-400 text-center">Complete Task</span>
+                            </div>
+                        <div class="flex flex-col items-center flex-1">
+                                <span class="text-lg font-bold text-yellow-500">{{ taskStatus.pending }}</span>
+                            <span class="text-xs text-gray-400 text-center">Pending Task</span>
+                            </div>
+                        <div class="flex flex-col items-center flex-1">
+                                <span class="text-lg font-bold text-red-500">{{ taskStatus.due }}</span>
+                            <span class="text-xs text-gray-400 text-center">Due Task</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Tables Grid -->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Recent Orders -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800">Recent Orders</h2>
-                        <button class="text-sm text-primary hover:text-primary-dark">View All Orders</button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
+                <!-- Row 3: Recent Order (1/2) + New Customer (1/2) -->
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">Recent Order</h2>
+                        </div>
+                    <div class="overflow-x-auto flex-1">
+                          <table class="min-w-full text-xs">
                             <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">IMAGE</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">CUSTOMER NAME</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">QTY</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">DATE</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">PRICE</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">STATUS</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">ACTION</th>
-                                </tr>
+                          <tr class="border-b border-gray-200">
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">IMAGE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">CUSTOMER NAME</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">QTY</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden sm:table-cell">DATE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden md:table-cell">PRICE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">STATUS</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">ACTION</th>
+                              </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(order, i) in recentOrders" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="px-4 py-3">
-                                        <img :src="`/images/${order.image}`" :alt="order.customer" class="w-10 h-10 rounded object-cover" />
-                                    </td>
-                                    <td class="px-4 py-3 font-medium text-gray-900">{{ order.customer }}</td>
-                                    <td class="px-4 py-3 text-gray-500">{{ order.qty }}</td>
-                                    <td class="px-4 py-3 text-gray-500">{{ order.date }}</td>
-                                    <td class="px-4 py-3 font-medium text-gray-900">{{ order.price }}</td>
-                                    <td class="px-4 py-3">
-                                        <span :class="`px-2 py-1 rounded-full text-xs font-medium ${
-                                            order.status === 'Paid' ? 'bg-success-light text-success' : 'bg-danger-light text-danger'
-                                        }`">
-                                            {{ order.status }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <button class="text-gray-400 hover:text-primary">
-                                            <span class="material-icons-outlined">more_vert</span>
-                                        </button>
-                                    </td>
-                                </tr>
+                          <tr v-for="(order, i) in recentOrders" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="px-2 py-2"><img :src="`/images/${order.image}`" alt="" class="w-6 h-6 sm:w-8 sm:h-8 rounded object-cover" /></td>
+                            <td class="px-2 py-2 font-medium text-gray-900 truncate max-w-[100px] sm:max-w-[150px]">{{ order.customer }}</td>
+                            <td class="px-2 py-2">{{ order.qty }}</td>
+                            <td class="px-2 py-2 hidden sm:table-cell text-gray-600">{{ order.date }}</td>
+                            <td class="px-2 py-2 hidden md:table-cell font-medium">{{ order.price }}</td>
+                            <td class="px-2 py-2">
+                              <span :class="order.status === 'Paid' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded text-xs">
+                                    {{ order.status }}
+                                  </span>
+                                </td>
+                            <td class="px-2 py-2">
+                              <button class="text-gray-400 hover:text-[#0A97B0] p-1">
+                                <i class="material-icons-outlined text-sm">more_vert</i>
+                                  </button>
+                                </td>
+                              </tr>
                             </tbody>
-                        </table>
+                          </table>
+                        </div>
                     </div>
-                </div>
-
-                <!-- New Customers -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800">New Customers</h2>
-                        <button class="text-sm text-primary hover:text-primary-dark">View All Customers</button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6 min-h-[220px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-semibold text-gray-800 text-lg">New Customer</h2>
+                        </div>
+                    <div class="overflow-x-auto flex-1">
+                          <table class="min-w-full text-xs">
                             <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">IMAGE</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">CUSTOMER NAME</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">COUNTRY</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">DATE</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">STATUS</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500">ACTION</th>
-                                </tr>
+                          <tr class="border-b border-gray-200">
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">IMAGE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">CUSTOMER NAME</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden sm:table-cell">COUNTRY</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600 hidden md:table-cell">DATE</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">STATUS</th>
+                            <th class="px-2 py-2 text-left font-medium text-gray-600">ACTION</th>
+                              </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(customer, i) in newCustomers" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="px-4 py-3">
-                                        <img :src="`/images/${customer.image}`" :alt="customer.name" class="w-10 h-10 rounded-full object-cover" />
-                                    </td>
-                                    <td class="px-4 py-3 font-medium text-gray-900">{{ customer.name }}</td>
-                                    <td class="px-4 py-3 text-gray-500">{{ customer.country }}</td>
-                                    <td class="px-4 py-3 text-gray-500">{{ customer.date }}</td>
-                                    <td class="px-4 py-3">
-                                        <span :class="`px-2 py-1 rounded-full text-xs font-medium ${
-                                            customer.status === 'Active' ? 'bg-success-light text-success' : 'bg-danger-light text-danger'
-                                        }`">
-                                            {{ customer.status }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <button class="text-gray-400 hover:text-primary">
-                                            <span class="material-icons-outlined">more_vert</span>
-                                        </button>
-                                    </td>
-                                </tr>
+                          <tr v-for="(customer, i) in newCustomers" :key="i" class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="px-2 py-2"><img :src="`/images/${customer.image}`" alt="" class="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover" /></td>
+                            <td class="px-2 py-2 font-medium text-gray-900 truncate max-w-[100px] sm:max-w-[150px]">{{ customer.name }}</td>
+                            <td class="px-2 py-2 hidden sm:table-cell text-gray-600">{{ customer.country }}</td>
+                            <td class="px-2 py-2 hidden md:table-cell text-gray-600">{{ customer.date }}</td>
+                            <td class="px-2 py-2">
+                              <span :class="customer.status === 'Active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'" class="px-2 py-1 rounded text-xs">
+                                    {{ customer.status }}
+                                  </span>
+                                </td>
+                            <td class="px-2 py-2">
+                              <button class="text-gray-400 hover:text-[#0A97B0] p-1">
+                                <i class="material-icons-outlined text-sm">more_vert</i>
+                                  </button>
+                                </td>
+                              </tr>
                             </tbody>
-                        </table>
+                          </table>
                     </div>
                 </div>
             </section>
