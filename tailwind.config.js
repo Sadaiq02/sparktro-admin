@@ -1,62 +1,43 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
+        "./resources/js/**/*.vue",
     ],
-
+    safelist: ["bg-[#0A97B0]"],
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Work Sans', ...defaultTheme.fontFamily.sans],
+                sans: ["'Work Sans'", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: {
-                    DEFAULT: '#0A97B0',
-                    light: 'rgba(10, 151, 176, 0.1)',
-                },
-                success: {
-                    DEFAULT: '#0DC46E',
-                    light: 'rgba(13, 196, 110, 0.1)',
-                },
-                danger: {
-                    DEFAULT: '#FF4340',
-                    light: 'rgba(255, 67, 64, 0.1)',
-                },
                 gray: {
-                    50: '#5F6D7E',
-                    700: '#272D37',
+                    sparktro: "#F1F1F1",
                 },
-                text: {
-                    primary: '#1E2533',
-                    secondary: '#5A556E',
-                    muted: '#8D97A3',
-                    body: '#545C66',
+                primary: {
+                    sparktro: "#0A97B0",
                 },
-                border: {
-                    DEFAULT: '#BDC7D3',
-                    light: '#D6E2EF',
+                black: {
+                    sparktro: "#1E2533",
                 },
-                bg: {
-                    white: '#FFFFFF',
-                    light: '#F8FAFC',
-                    gray: '#919AA4',
-                    secondary: '#AEC7ED',
+                red: {
+                    sparktro: "#FF4340",
                 },
-            },
-            spacing: {
-                '8': '8px',
-                '16': '16px',
-            },
-            borderRadius: {
-                '8': '8px',
+                yellow: {
+                    sparktro: "#FDCB02",
+                },
+                textTeal: {
+                    sparktro: "#5BD1D7",
+                },
             },
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [forms],
 };
+

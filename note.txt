@@ -1,4 +1,0 @@
-sudo /opt/lampp/xampp start
-sudo /opt/lampp/lampp restart
-
-php artisan queue:work

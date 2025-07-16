@@ -1,218 +1,265 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { ref } from 'vue'
 
-const props = defineProps({
-    customers: Object,
-});
+const users = ref([
+  {
+    id: 1,
+    image: '/images/user1.jpg',
+    name: 'Albert Flores',
+    email: 'Koss@hotmail.com',
+    phone: '(907) 555-0101',
+    country: 'Saudi Arabia',
+    department: 'Manager',
+    date: '11 May 2025',
+    role: 'Admin',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 2,
+    image: '/images/user2.jpg',
+    name: 'Robert Fox',
+    email: 'Koss@hotmail.com',
+    phone: '(629) 555-0129',
+    country: 'South Africa',
+    department: 'Management',
+    date: '11 May 2025',
+    role: 'Super Admin',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 3,
+    image: '/images/user3.jpg',
+    name: 'Jenny Wilson',
+    email: 'Koss@hotmail.com',
+    phone: '(684) 555-0102',
+    country: 'Viet Nam',
+    department: 'Account',
+    date: '11 May 2025',
+    role: 'Staff',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 4,
+    image: '/images/user4.jpg',
+    name: 'Brooklyn Simmons',
+    email: 'Koss@hotmail.com',
+    phone: '(208) 555-0112',
+    country: 'Bahrain',
+    department: 'Developer',
+    date: '11 May 2025',
+    role: 'HR',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 5,
+    image: '/images/user5.jpg',
+    name: 'Bessie Cooper',
+    email: 'Koss@hotmail.com',
+    phone: '(405) 555-0128',
+    country: 'Iceland',
+    department: 'Designer',
+    date: '11 May 2025',
+    role: 'Staff',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 6,
+    image: '/images/user6.jpg',
+    name: 'Kristin Watson',
+    email: 'Koss@hotmail.com',
+    phone: '(308) 555-0121',
+    country: 'Algeria',
+    department: 'Management',
+    date: '11 May 2025',
+    role: 'Staff',
+    status: false,
+    showDropdown: false,
+  },
+  {
+    id: 7,
+    image: '/images/user7.jpg',
+    name: 'Kathryn Murphy',
+    email: 'Koss@hotmail.com',
+    phone: '(603) 555-0123',
+    country: 'Bahrain',
+    department: 'Designer',
+    date: '11 May 2025',
+    role: 'Staff',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 8,
+    image: '/images/user8.jpg',
+    name: 'Theresa Webb',
+    email: 'Koss@hotmail.com',
+    phone: '(702) 555-0122',
+    country: 'Afghanistan',
+    department: 'Account',
+    date: '11 May 2025',
+    role: 'Employee',
+    status: true,
+    showDropdown: false,
+  },
+  {
+    id: 9,
+    image: '/images/user9.jpg',
+    name: 'Cameron Williamson',
+    email: 'Koss@hotmail.com',
+    phone: '(205) 555-0100',
+    country: 'Haiti',
+    department: 'Designer',
+    date: '11 May 2025',
+    role: 'Employee',
+    status: false,
+    showDropdown: false,
+  },
+  {
+    id: 10,
+    image: '/images/user10.jpg',
+    name: 'Jerome Bell',
+    email: 'Koss@hotmail.com',
+    phone: '(406) 555-0120',
+    country: 'Saint Barthélemy',
+    department: 'Designer',
+    date: '11 May 2025',
+    role: 'Staff',
+    status: true,
+    showDropdown: false,
+  },
+])
 
-const search = ref('');
-const selectedUsers = ref([]);
+const toggleStatus = (user) => {
+  user.status = !user.status
+}
 
-const filteredCustomers = computed(() => {
-    if (!props.customers) return [];
-    if (!search.value) return props.customers;
-    
-    return props.customers.filter(customer => 
-        customer.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        customer.email.toLowerCase().includes(search.value.toLowerCase()) ||
-        customer.phone?.toLowerCase().includes(search.value.toLowerCase()) ||
-        customer.country?.toLowerCase().includes(search.value.toLowerCase())
-    );
-});
-
-const toggleUserSelection = (userId) => {
-    const index = selectedUsers.value.indexOf(userId);
-    if (index > -1) {
-        selectedUsers.value.splice(index, 1);
-    } else {
-        selectedUsers.value.push(userId);
-    }
-};
-
-const selectAllUsers = (event) => {
-    if (event.target.checked) {
-        selectedUsers.value = filteredCustomers.value.map(user => user.id);
-    } else {
-        selectedUsers.value = [];
-    }
-};
+const toggleDropdown = (user) => {
+  user.showDropdown = !user.showDropdown
+}
 </script>
 
 <template>
-    <Head title="Customer List" />
+  <AuthenticatedLayout>
+    <div class="p-6">
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h1 class="text-[20px] font-semibold text-gray-900">Customer List</h1>
 
-    <AuthenticatedLayout>
-        <div class="p-4 sm:p-6">
-            <div class="bg-white rounded-lg shadow overflow-hidden">
-                <!-- Header -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-6 border-b border-gray-200 bg-gray-50 gap-4">
-                    <div class="flex items-center gap-3">
-                        <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Customer List</h2>
-                        <span v-if="selectedUsers.length > 0" class="text-sm text-gray-600 bg-gray-200 px-2 py-1 rounded">
-                            {{ selectedUsers.length }} selected
-                        </span>
-                    </div>
-                    <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-3">
-                        <!-- Search Input -->
-                        <div class="relative flex-1 sm:flex-none">
-                            <input 
-                                v-model="search"
-                                type="text" 
-                                placeholder="Search customers..." 
-                                class="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                            >
-                            <svg class="absolute left-3 top-2.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                        <Link 
-  href="/users/create" 
-  class="px-4 py-2 bg-[#0A97B0] hover:bg-[#088399] text-sm rounded text-white whitespace-nowrap transition-colors"
->    + Add User
-                        </Link>
-                    </div>
-                </div>
+        <div class="flex flex-wrap sm:flex-nowrap gap-3 items-center">
+          <div class="flex items-center gap-2">
+            <label for="show" class="text-sm text-gray-500">Show</label>
+            <select id="show" class="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>
+          </div>
 
-                <!-- Mobile Card View -->
-                <div class="block sm:hidden">
-                    <div class="p-4 space-y-4">
-                        <div v-for="customer in filteredCustomers" :key="customer.id" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="flex items-center gap-3">
-                                    <input 
-                                        type="checkbox" 
-                                        :checked="selectedUsers.includes(customer.id)"
-                                        @change="toggleUserSelection(customer.id)"
-                                        class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                                    >
-                                    <img :src="customer.image" alt="avatar" class="w-12 h-12 rounded-full object-cover" />
-                                </div>
-                                <button class="text-gray-400 hover:text-gray-600 p-1">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="space-y-2">
-                                <div>
-                                    <div class="font-medium text-gray-900 text-base">{{ customer.name }}</div>
-                                    <div class="text-sm text-gray-500">{{ customer.email }}</div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 text-sm">
-                                    <div>
-                                        <span class="text-gray-500">Phone:</span>
-                                        <span class="ml-1 text-gray-900">{{ customer.phone || 'N/A' }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-gray-500">Country:</span>
-                                        <span class="ml-1 text-gray-900">{{ customer.country || 'N/A' }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-gray-500">Department:</span>
-                                        <span class="ml-1 text-gray-900">{{ customer.department || 'N/A' }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-gray-500">Role:</span>
-                                        <span class="ml-1 text-gray-900">{{ customer.role || 'N/A' }}</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between pt-2">
-                                    <span class="text-xs text-gray-500">{{ customer.date }}</span>
-                                    <span class="px-2 py-1 rounded-full text-xs font-medium"
-                                          :class="customer.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
-                                        {{ customer.status }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="relative w-full sm:w-auto">
+            <input
+              type="text"
+              placeholder="Search"
+              class="border border-gray-300 rounded-md px-3 py-2 text-sm w-full sm:w-52 focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <svg
+              class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+            </svg>
+          </div>
 
-                <!-- Desktop Table View -->
-                <div class="hidden sm:block overflow-x-auto">
-                    <table class="min-w-full text-sm text-left text-gray-700">
-                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
-                            <tr>
-                                <th class="px-4 py-3">
-                                    <input 
-                                        type="checkbox" 
-                                        :checked="selectedUsers.length === filteredCustomers.length && filteredCustomers.length > 0"
-                                        @change="selectAllUsers"
-                                        class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                                    />
-                                </th>
-                                <th class="px-4 py-3">Image</th>
-                                <th class="px-4 py-3">Customer Name</th>
-                                <th class="px-4 py-3 hidden md:table-cell">Phone</th>
-                                <th class="px-4 py-3 hidden lg:table-cell">Country</th>
-                                <th class="px-4 py-3 hidden xl:table-cell">Department</th>
-                                <th class="px-4 py-3 hidden lg:table-cell">Date</th>
-                                <th class="px-4 py-3 hidden xl:table-cell">Role</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3 text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr v-for="customer in filteredCustomers" :key="customer.id" class="hover:bg-gray-50">
-                                <td class="px-4 py-3">
-                                    <input 
-                                        type="checkbox" 
-                                        :checked="selectedUsers.includes(customer.id)"
-                                        @change="toggleUserSelection(customer.id)"
-                                        class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                                    />
-                                </td>
-
-                                <td class="px-4 py-3">
-                                    <img :src="customer.image" alt="avatar" class="w-8 h-8 rounded-full object-cover" />
-                                </td>
-
-                                <td class="px-4 py-3">
-                                    <div class="font-medium text-gray-800">{{ customer.name }}</div>
-                                    <div class="text-xs text-gray-500">{{ customer.email }}</div>
-                                </td>
-
-                                <td class="px-4 py-3 hidden md:table-cell">{{ customer.phone || 'N/A' }}</td>                                
-                                <td class="px-4 py-3 hidden lg:table-cell">{{ customer.country || 'N/A' }}</td>
-                                <td class="px-4 py-3 hidden xl:table-cell">{{ customer.department || 'N/A' }}</td>
-                                <td class="px-4 py-3 hidden lg:table-cell">{{ customer.date }}</td>
-                                <td class="px-4 py-3 hidden xl:table-cell">{{ customer.role || 'N/A' }}</td>
-                                <td class="px-4 py-3">
-                                    <span class="px-2 py-1 rounded-full text-xs font-medium"
-                                          :class="customer.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
-                                        {{ customer.status }}
-                                    </span>
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    <button class="text-gray-500 hover:text-gray-700 p-1 rounded hover:bg-gray-100">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Empty State -->
-                <div v-if="filteredCustomers.length === 0" class="p-8 text-center">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 01 3-3.87m9-4a4 4 0 1 0-8 0 4 4 0 0 0 8 0z"></path>
-                    </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900">No customers found</h3>
-                    <p class="mt-1 text-sm text-gray-500">
-                        {{ search ? 'Try adjusting your search terms.' : 'Get started by creating a new customer.' }}
-                    </p>
-                    <div class="mt-6">
-                        <Link href="/users/create" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700">
-                            + Add Customer
-                        </Link>
-                    </div>
-                </div>
-            </div>
+          <button class="bg-[#0A97B0] text-white px-4 py-2 rounded-md font-medium hover:bg-[#0A97B0]-700 transition">
+            + Add User
+          </button>
         </div>
-    </AuthenticatedLayout>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 text-gray-600 text-xs font-medium uppercase">
+            <tr>
+              <th class="p-4"><input type="checkbox" /></th>
+              <th class="px-4 py-3 text-left">Image</th>
+              <th class="px-4 py-3 text-left">Customer Name</th>
+              <th class="px-4 py-3 text-left">Phone</th>
+              <th class="px-4 py-3 text-left">Country</th>
+              <th class="px-4 py-3 text-left">Department</th>
+              <th class="px-4 py-3 text-left">Date</th>
+              <th class="px-4 py-3 text-left">Role</th>
+              <th class="px-4 py-3 text-left">Status</th>
+              <th class="px-4 py-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50">
+              <td class="p-4"><input type="checkbox" /></td>
+              <td class="px-4 py-2">
+                <img :src="user.image" alt="" class="w-10 h-10 rounded-full object-cover" />
+              </td>
+              <td class="px-4 py-2">
+                <div class="font-medium text-gray-900">{{ user.name }}</div>
+                <div class="text-gray-500 text-xs">{{ user.email }}</div>
+              </td>
+              <td class="px-4 py-2 text-gray-700">{{ user.phone }}</td>
+              <td class="px-4 py-2 text-gray-700">{{ user.country }}</td>
+              <td class="px-4 py-2 text-gray-700">{{ user.department }}</td>
+              <td class="px-4 py-2 text-gray-700">{{ user.date }}</td>
+              <td class="px-4 py-2 text-gray-700">{{ user.role }}</td>
+              <td class="px-4 py-2">
+                <button
+                  class="w-10 h-5 flex items-center bg-[#0A97B0] rounded-full p-1 transition"
+                  :class="user.status ? 'bg-[#0A97B0]' : 'bg-[#0A97B0]'"
+                  @click="toggleStatus(user)"
+                >
+                  <div
+                    class="bg-white w-4 h-4 rounded-full shadow transform transition"
+                    :class="user.status ? 'translate-x-5' : ''"
+                  ></div>
+                </button>
+              </td>
+              <td class="px-4 py-2 relative">
+                <div class="relative">
+                  <button @click="toggleDropdown(user)" class="text-gray-500 hover:text-gray-700">⋮</button>
+                  <div
+                    v-if="user.showDropdown"
+                    class="absolute right-0 mt-2 w-24 bg-white border border-gray-200 rounded shadow z-10"
+                  >
+                    <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Edit</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100">Delete</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+        <p>Show 10 out of 50</p>
+        <div class="flex items-center space-x-2">
+          <button class="hover:text-gray-700">Prev</button>
+          <button class="font-medium text-gray-900">1</button>
+          <button class="hover:text-gray-700">2</button>
+          <button class="hover:text-gray-700">3</button>
+          <button class="hover:text-gray-700">Next</button>
+        </div>
+      </div>
+    </div>
+  </AuthenticatedLayout>
 </template>
+
+<style scoped>
+/* Optional: Tailwind handles most styling, can add more global overrides here if needed */
+</style>

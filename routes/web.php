@@ -31,30 +31,4 @@ Route::middleware('auth')
     Route::post('/store', [UserController::class, 'store'])->name('store');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/role/all', function () {
-        return Inertia::render('Role/All');
-    });
-    Route::get('/role/assign', function () {
-        return Inertia::render('Role/Assign');
-    });
-    // Activity Logs page
-    Route::get('/activity/logs', function () {
-        return Inertia::render('Activity/Logs');
-    })->name('activity.logs');
-    // Notifications pages
-    Route::get('/notifications/push', function () {
-        return Inertia::render('Notifications/PushList');
-    });
-    Route::get('/notifications/push/create', function () {
-        return Inertia::render('Notifications/PushCreate');
-    });
-    Route::get('/notifications/general', function () {
-        return Inertia::render('Notifications/GeneralList');
-    });
-    Route::get('/settings', function () {
-        return Inertia::render('Settings/Settings');
-    });
-});
-
 require __DIR__.'/auth.php';

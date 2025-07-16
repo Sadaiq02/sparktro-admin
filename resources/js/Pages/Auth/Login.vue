@@ -58,21 +58,21 @@ const fillDemoCredentials = () => {
 
             <!-- Right Form -->
             <div
-                class="flex flex-col justify-center w-full md:w-1/2 px-4 sm:px-8 md:px-12 py-8 sm:py-12"
+                class="flex flex-col justify-center w-full md:w-1/2 px-8 py-12 sm:px-12 my-5"
             >
-                <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 md:p-12 lg:p-16 max-w-md mx-auto w-full">
+                <div class="bg-white rounded-lg shadow-lg pt-20 pb-20 px-16">
                     <!-- Logo -->
-                    <div class="flex justify-center mb-6">
+                    <div class="flex mb-6">
                         <Link href="/" aria-label="Home">
                             <ApplicationLogo
-                                class="h-10 sm:h-12 w-auto text-gray-700"
+                                class="h-12 w-auto text-gray-700"
                             />
                         </Link>
                     </div>
 
                     <!-- Heading -->
-                    <div class="mb-6 text-center sm:text-left">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">
+                    <div class="mb-6">
+                        <h2 class="text-3xl font-bold text-gray-800">
                             Welcome Back
                         </h2>
                         <p class="text-sm text-gray-500 mt-1">
@@ -81,20 +81,19 @@ const fillDemoCredentials = () => {
                     </div>
 
                     <!-- Form -->
-                    <form @submit.prevent="submit" class="space-y-4 sm:space-y-6" novalidate>
+                    <form @submit.prevent="submit" class="space-y-6" novalidate>
                         <!-- Email -->
                         <div>
-                            <InputLabel for="email" value="User Email" class="text-sm font-medium text-gray-700" />
+                            <InputLabel for="email" value="User Email" />
                             <TextInput
                                 id="email"
                                 type="email"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                class="mt-1 block w-full"
                                 v-model="form.email"
                                 required
                                 autofocus
                                 autocomplete="username"
                                 aria-required="true"
-                                placeholder="Enter your email"
                             />
                             <InputError
                                 class="mt-2"
@@ -104,22 +103,23 @@ const fillDemoCredentials = () => {
 
                         <!-- Password -->
                         <div class="relative">
-                            <InputLabel for="password" value="Password" class="text-sm font-medium text-gray-700" />
-                            <div class="relative mt-1">
+                            <InputLabel for="password" value="Password" />
+
                             <TextInput
                                 :type="showPassword ? 'text' : 'password'"
                                 id="password"
-                                    class="block w-full pr-12 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                class="mt-1 block w-full pr-12"
                                 v-model="form.password"
                                 required
                                 autocomplete="current-password"
                                 aria-required="true"
-                                    placeholder="Enter your password"
                             />
+
+                            <!-- Eye icon -->
                             <button
                                 type="button"
                                 @click="showPassword = !showPassword"
-                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center text-gray-500 hover:text-gray-700 p-1"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                                 tabindex="-1"
                                 aria-label="Toggle password visibility"
                             >
@@ -166,7 +166,7 @@ const fillDemoCredentials = () => {
                                     />
                                 </svg>
                             </button>
-                            </div>
+
                             <InputError
                                 class="mt-2"
                                 :message="form.errors.password"
@@ -188,21 +188,10 @@ const fillDemoCredentials = () => {
                             </label>
                         </div>
 
-                        <!-- Demo Credentials Button -->
-                        <div class="text-center">
-                            <button
-                                type="button"
-                                @click="fillDemoCredentials"
-                                class="text-sm text-teal-600 hover:text-teal-700 underline"
-                            >
-                                Fill Demo Credentials
-                            </button>
-                        </div>
-
                         <!-- Submit -->
                         <div>
                             <PrimaryButton
-                                class="w-full flex justify-center items-center text-center bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg px-4 py-3 transition duration-300 shadow-sm"
+                                class="w-full flex justify-center items-center text-center bg-teal-800 text-white font-semibold rounded-lg px-4 py-2 transition duration-300 hover:from-[#0A97B0] hover:to-[#064a55] hover:bg-gradient-to-l"
                                 :class="{
                                     'opacity-50 cursor-not-allowed':
                                         form.processing,
@@ -210,36 +199,70 @@ const fillDemoCredentials = () => {
                                 :disabled="form.processing"
                                 aria-busy="form.processing"
                             >
-                                <svg v-if="form.processing" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                {{ form.processing ? 'Signing in...' : 'Log in' }}
+                                Log in
                             </PrimaryButton>
-                        </div>
 
-                        <!-- Forgot Password Link -->
-                        <div class="text-center">
+                            <!-- Forgot Password -->
+                            <div class="mt-4 text-center">
                                 <Link
                                     v-if="canResetPassword"
                                     :href="route('password.request')"
-                                class="text-sm text-teal-600 hover:text-teal-700 underline"
+                                    class="text-[#FF4340] font-medium text-[14px] hover:underline"
                                 >
-                                Forgot your password?
+                                    Forgot password?
                                 </Link>
                             </div>
 
-                        <!-- Register Link -->
-                        <div class="text-center pt-4 border-t border-gray-200">
-                            <p class="text-sm text-gray-600">
-                                Don't have an account?
-                                <Link
-                                    :href="route('register')"
-                                    class="text-teal-600 hover:text-teal-700 font-medium underline"
+                            <!-- Demo Credentials -->
+                            <div
+                                class="p-6 bg-white border border-gray-200 rounded-lg shadow-sm mt-6"
+                            >
+                                <div
+                                    class="flex justify-between items-center space-x-4 flex-wrap"
+                                >
+                                    <div
+                                        class="flex flex-col text-gray-700 min-w-[180px]"
+                                    >
+                                        <p class="mb-1">
+                                            Email: sparktroadmin@yopmail.com
+                                        </p>
+                                        <p>Password: Test@1234</p>
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            @click="fillDemoCredentials"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white rounded-lg fill-demo-btn"
                                         >
-                                    Register here
-                                </Link>
-                            </p>
+                                            Fill in demo credentials
+                                            <svg
+                                                class="rtl:rotate-180 w-4 h-4 ms-2"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 14 10"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Message -->
+                        <div
+                            v-if="status"
+                            class="text-sm font-medium text-danger mt-4 text-center"
+                            role="alert"
+                            aria-live="polite"
+                        >
+                            {{ status }}
                         </div>
                     </form>
                 </div>
