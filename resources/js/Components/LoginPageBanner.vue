@@ -1,3 +1,3 @@
 <template>
-    <img src="../../../public/assets/img/login_page_banner.svg" alt="Banner"/>
+    <img src="../../../public/assets/login_.svg" alt="Banner"/>
 </template>

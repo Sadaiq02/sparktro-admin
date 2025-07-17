@@ -1,3 +1,3 @@
 <template>
-    <img src="../../../public/assets/img/forgot_password.svg" alt="ForgotPassBanner"/>
+    <img src="../../../public/assets/img/forget.png" alt="ForgotPassBanner"/>
 </template>

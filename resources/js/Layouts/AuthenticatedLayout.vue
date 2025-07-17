@@ -5,7 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 
@@ -85,6 +85,11 @@ const closeMobileMenu = () => {
     if (isMobile.value) {
         mobileMenuOpen.value = false;
     }
+};
+
+// Logout function
+const logout = () => {
+    router.post(route('logout'));
 };
 
 
@@ -304,8 +309,8 @@ const handleClickOutside = (e) => {
 
                     <!-- Logout -->
                     <li class="mt-8">
-                        <a href="#"
-                            class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
+                        <button @click="logout"
+                            class="w-full py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">logout</i>
                                 <span class="whitespace-nowrap">Logout</span>
@@ -315,7 +320,7 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -359,9 +364,9 @@ const handleClickOutside = (e) => {
                         </a>
                     </li>
                     <li class="mt-8">
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Logout">
+                        <button @click="logout" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Logout">
                             <i class="material-icons-outlined text-lg">logout</i>
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -422,7 +427,7 @@ const handleClickOutside = (e) => {
                             <div class="py-1">
                                 <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-sparktro transition-colors duration-200">Profile</a>
                                 <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-sparktro transition-colors duration-200">Settings</a>
-                                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-sparktro transition-colors duration-200">Logout</a>
+                                <button @click="logout" class="w-full text-left block px-3 py-2 text-sm hover:bg-gray-sparktro transition-colors duration-200">Logout</button>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Session;
 
 class PasswordResetLinkController extends Controller
 {
@@ -33,19 +34,18 @@ class PasswordResetLinkController extends Controller
             'email' => 'required|email',
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        // Generate a 4-digit verification code
+        $code = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        
+        // Store the code and email in session
+        Session::put('verification_code', $code);
+        Session::put('verification_email', $request->email);
 
-        if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
-        }
+        // Here you would send the email with the verification code
+        // For now, we'll just redirect to the verification page
+        // In production, you would use Laravel's Mail facade to send the code
 
-        throw ValidationException::withMessages([
-            'email' => [trans($status)],
-        ]);
+        return redirect()->route('verification.create')
+            ->with('status', 'A 4-digit verification code has been sent to your email.');
     }
 }

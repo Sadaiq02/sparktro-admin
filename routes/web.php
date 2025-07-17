@@ -11,6 +11,28 @@ Route::get('/', function () {
     ]);
 });
 
+// Test route for verification page (remove in production)
+Route::get('/test-verification', function () {
+    // Set some test data in session
+    session(['verification_code' => '1234']);
+    session(['verification_email' => 'test@example.com']);
+    
+    return redirect()->route('verification.create');
+})->name('test.verification');
+
+// Test route for new password page (remove in production)
+Route::get('/test-new-password', function () {
+    return redirect()->route('password.reset', [
+        'token' => 'test-token-123',
+        'email' => 'test@example.com'
+    ]);
+})->name('test.new-password');
+
+// Test route for success page (remove in production)
+Route::get('/test-success', function () {
+    return redirect()->route('success.create');
+})->name('test.success');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

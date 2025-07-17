@@ -42,14 +42,14 @@ function onSubmit() {
 </script>
 
 <template>
-  <Head title="Create New User" />
+  <Head title="Edit User" />
 
   <AuthenticatedLayout>
     <div class="p-6">
       <div class="bg-white border border-gray-200 rounded-xl shadow-sm max-w-[1280px] mx-auto">
         <!-- Header -->
         <div class="flex items-center justify-between border-b px-6 py-4">
-          <h2 class="text-xl font-semibold text-gray-800">Create New User</h2>
+          <h2 class="text-xl font-semibold text-gray-800">Edit User</h2>
           <Link href="/users/all">
             <button
               class="flex items-center gap-1 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 text-sm px-4 py-1.5 rounded-md transition">
@@ -181,7 +181,7 @@ function onSubmit() {
           <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-start pt-4">
             <button type="submit"
               class="bg-[#0A97B0] hover:bg-[#098aa0] text-white text-sm px-6 py-2 rounded-md transition">
-              Create User
+              Update
             </button>
           </div>
         </form>

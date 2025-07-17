@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\SuccessController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -33,6 +35,20 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    // Verification code routes
+    Route::get('verification', [VerificationController::class, 'create'])
+        ->name('verification.create');
+
+    Route::post('verification', [VerificationController::class, 'store'])
+        ->name('verification.store');
+
+    Route::post('verification/resend', [VerificationController::class, 'resend'])
+        ->name('verification.resend');
+
+    // Success page route
+    Route::get('success', [SuccessController::class, 'create'])
+        ->name('success.create');
 });
 
 Route::middleware('auth')->group(function () {

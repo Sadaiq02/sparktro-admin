@@ -5,28 +5,36 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import ForgotPassBanner from "@/Components/ForgotPassBanner.vue";
+import Newpassword from "@/Components/Newpassword.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
+const props = defineProps({
+    email: String,
+    token: String,
+});
+
 const form = useForm({
-    email: "",
+    token: props.token,
+    email: props.email,
+    password: "",
+    password_confirmation: "",
 });
 
 const submit = () => {
-    form.post(route("password.email"), {
-        onFinish: () => form.reset("email"),
+    form.post(route("password.store"), {
+        onFinish: () => form.reset("password", "password_confirmation"),
     });
 };
 </script>
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="New Password" />
 
         <div class="min-h-screen bg-[#F8F8F8] flex flex-col md:flex-row items-center justify-center px-4 md:px-12 py-8">
             <!-- Left: Illustration -->
             <div class="hidden md:flex md:w-1/2 justify-center items-center">
-                <ForgotPassBanner class="max-w-[400px] w-full" />
+                <Newpassword class="max-w-[400px] w-full" />
             </div>
 
             <!-- Right: Form -->
@@ -41,28 +49,42 @@ const submit = () => {
 
                     <!-- Heading -->
                     <div class="mb-6">
-                        <h2 class="text-2xl font-semibold text-[#1E1E1E]">Forgot Password</h2>
+                        <h2 class="text-2xl font-semibold text-[#1E1E1E]">New Password</h2>
                         <p class="text-sm text-gray-500 mt-1">
-                            Enter your email for the verification process, we will send 4 digits code to your email.
+                            Set the new password for your account so you can login and access all features.
                         </p>
                     </div>
 
                     <!-- Form -->
                     <form @submit.prevent="submit" class="space-y-6">
-                        <!-- Email -->
+                        <!-- New Password -->
                         <div>
-                            <InputLabel for="email" value="Email" />
+                            <InputLabel for="password" value="New Password" />
                             <TextInput
-                                id="email"
-                                type="email"
+                                id="password"
+                                type="password"
                                 class="mt-1 block w-full placeholder-gray-400"
-                                v-model="form.email"
-                                placeholder="example@gmail.com"
+                                v-model="form.password"
+                                placeholder="Minimum 8 symbol at least"
                                 required
-                                autofocus
-                                autocomplete="email"
+                                autocomplete="new-password"
                             />
-                            <InputError class="mt-2" :message="form.errors.email" />
+                            <InputError class="mt-2" :message="form.errors.password" />
+                        </div>
+
+                        <!-- Confirm New Password -->
+                        <div>
+                            <InputLabel for="password_confirmation" value="Confirm New Password" />
+                            <TextInput
+                                id="password_confirmation"
+                                type="password"
+                                class="mt-1 block w-full placeholder-gray-400"
+                                v-model="form.password_confirmation"
+                                placeholder="Minimum 8 symbol at least"
+                                required
+                                autocomplete="new-password"
+                            />
+                            <InputError class="mt-2" :message="form.errors.password_confirmation" />
                         </div>
 
                         <!-- Submit -->
@@ -71,9 +93,8 @@ const submit = () => {
                             class="w-full bg-[#0A97B0] hover:bg-[#00778B] py-3 rounded-lg transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                             :disabled="form.processing"
                         >
-                            <span class="button-text">Send Code</span>
+                            <span class="button-text">Update Password</span>
                         </button>
-
                     </form>
                 </div>
             </div>
@@ -99,5 +120,3 @@ const submit = () => {
   width: 100%;
 }
 </style>
-
-
