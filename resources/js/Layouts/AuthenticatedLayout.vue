@@ -167,7 +167,7 @@ const handleClickOutside = (e) => {
                 <ul class="space-y-1">
                     <!-- Dashboard -->
                     <li>
-                        <a href="#"
+                        <Link :href="route('dashboard')"
                             class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">grid_view</i>
@@ -178,7 +178,7 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <!-- User Management -->
@@ -245,7 +245,7 @@ const handleClickOutside = (e) => {
 
                     <!-- Activity Logs -->
                     <li>
-                        <a href="#"
+                        <Link :href="route('activity-logs.index')"
                             class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">bar_chart</i>
@@ -256,12 +256,12 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <!-- Profile Management -->
                     <li>
-                        <a href="#"
+                        <Link :href="route('profile.edit')"
                             class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">person</i>
@@ -272,12 +272,12 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <!-- Notifications -->
                     <li>
-                        <a href="#"
+                        <Link :href="route('notifications.index')"
                             class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">notifications</i>
@@ -288,12 +288,12 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <!-- Settings -->
                     <li>
-                        <a href="#"
+                        <Link :href="route('settings.index')"
                             class="py-2.5 px-3 flex items-center justify-between font-bold text-sm text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200">
                             <span class="flex items-center">
                                 <i class="material-icons-outlined mr-3 text-lg">settings</i>
@@ -304,7 +304,7 @@ const handleClickOutside = (e) => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </Link>
                     </li>
 
                     <!-- Logout -->
@@ -329,39 +329,39 @@ const handleClickOutside = (e) => {
             <div v-if="!showSidebarContent && !isMobile" class="mt-6 px-2 overflow-y-auto h-[calc(100vh-68px)]">
                 <ul class="space-y-2">
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Dashboard">
+                        <Link :href="route('dashboard')" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Dashboard">
                             <i class="material-icons-outlined text-lg">grid_view</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="User Management">
+                        <Link href="/users/all" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="User Management">
                             <i class="material-icons-outlined text-lg">group</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Role & Permission">
+                        <Link href="/role-permission/roles" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Role & Permission">
                             <i class="material-icons-outlined text-lg">manage_accounts</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Activity Logs">
+                        <Link :href="route('activity-logs.index')" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Activity Logs">
                             <i class="material-icons-outlined text-lg">bar_chart</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Profile Management">
+                        <Link :href="route('profile.edit')" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Profile Management">
                             <i class="material-icons-outlined text-lg">person</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Notifications">
+                        <Link :href="route('notifications.index')" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Notifications">
                             <i class="material-icons-outlined text-lg">notifications</i>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Settings">
+                        <Link :href="route('settings.index')" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Settings">
                             <i class="material-icons-outlined text-lg">settings</i>
-                        </a>
+                        </Link>
                     </li>
                     <li class="mt-8">
                         <button @click="logout" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Logout">
@@ -410,7 +410,7 @@ const handleClickOutside = (e) => {
                     </button>
 
                     <!-- User Avatar -->
-                    <div class="relative group">
+                    <div class="relative">
                         <div
     class="w-8 h-8 rounded-full bg-primary-sparktro flex items-center justify-center text-white font-bold cursor-pointer hover:bg-primary-sparktro/90 transition-colors duration-200 profile-dropdown-trigger"
     @click.stop="profileMenuOpen = !profileMenuOpen"
@@ -419,7 +419,8 @@ const handleClickOutside = (e) => {
 </div>
 
                         <div
-                            class="absolute right-0 mt-2 w-48 bg-white border border-gray-sparktro rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-25">
+                            v-show="profileMenuOpen"
+                            class="absolute right-0 mt-2 w-48 bg-white border border-gray-sparktro rounded-lg shadow-lg transition-all duration-200 z-25">
                             <div class="p-3 border-b border-gray-sparktro">
                                 <p class="font-semibold text-black-sparktro text-sm">John Doe</p>
                                 <p class="text-black-sparktro/60 text-xs">john@example.com</p>
