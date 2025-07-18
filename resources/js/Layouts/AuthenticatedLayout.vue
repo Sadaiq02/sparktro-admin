@@ -234,10 +234,10 @@ const handleClickOutside = (e) => {
                             leave-to-class="opacity-0 max-h-0">
                             <ul v-show="rolePermissionMenuOpen" class="ml-8 mt-2 space-y-1 overflow-hidden">
                                 <li class="py-1.5">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro transition-colors duration-200">- Role</a>
+                                    <Link href="/role-permission/roles" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro transition-colors duration-200">- Role</Link>
                                 </li>
                                 <li class="py-1.5">
-                                    <a href="#" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro transition-colors duration-200">- Assign Role & Permissions</a>
+                                    <Link href="/role-permission/assign" class="block text-xs font-bold text-black-sparktro/80 hover:text-primary-sparktro transition-colors duration-200">- Assign Role & Permissions</Link>
                                 </li>
                             </ul>
                         </transition>
@@ -339,7 +339,7 @@ const handleClickOutside = (e) => {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/role-permission/roles" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Role & Permission">
+                        <Link href="/role-permission/assign" class="p-2 flex items-center justify-center text-black-sparktro hover:text-primary-sparktro hover:bg-primary-sparktro/10 rounded-lg transition-all duration-200" title="Assign Role & Permissions">
                             <i class="material-icons-outlined text-lg">manage_accounts</i>
                         </Link>
                     </li>
